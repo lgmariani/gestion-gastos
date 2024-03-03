@@ -1,7 +1,7 @@
+//Angular components
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
 import { HttpClientModule } from '@angular/common/http';
 
 //PrimeNG
@@ -12,10 +12,11 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import {InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
 
-
-
-
+//Componentes propios
 import { AppComponent } from './app.component';
 import { FormularioGastosComponent } from './formulario-gastos/formulario-gastos.component';
 import { ListaGastosComponent } from './lista-gastos/lista-gastos.component';
@@ -41,9 +42,11 @@ import { CategoryNamePipe } from './category-name.pipe';
     InputNumberModule,
     InputTextModule,
     HttpClientModule,
-    TableModule
+    TableModule,
+    ToastModule,
+    MessagesModule
   ],
-  providers: [ ],
+  providers: [ MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -41,20 +41,27 @@
     </div>
   </div>
 
+
+  <!-- [required]="true" -->
+  <!-- le quité el requried cuando agregué el evento con onInputChange y la propiedad isAmountValid -->
   <div class="form-group row">
     <label for="valor" class="col-md-2 col-form-label">Valor:</label>
     <div class="col-md-2">
       <p-inputNumber
         name="valor"
         [(ngModel)]="nuevoGasto.valor"
+        (onInput)="onInputChange($event)"
         inputId="currency-ar"
         currencyDisplay="symbol"
         mode="decimal"
-        [required]="true"
         currency="ARG"
+        [ngClass]="{ 'ng-invalid ng-dirty': !isAmountValid }"
         locale="es-ES"
       >
       </p-inputNumber>
+      <p *ngIf="!isAmountValid" class="text-red-500">
+        El valor es requerido
+      </p>
     </div>
   </div>
 

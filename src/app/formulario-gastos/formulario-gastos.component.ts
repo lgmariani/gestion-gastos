@@ -2,6 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Gasto } from '../interfaces/gasto.model';
 import { NuevoGasto } from '../interfaces/nuevogasto.model';
 import { HttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
 
 
 
@@ -12,6 +14,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FormularioGastosComponent  {
   
+  constructor(private messageService: MessageService) {}
+
   http = inject(HttpClient);
 
   // peopleOptions: string[] = [ 'Mapache',  'Topo Rock' ];
@@ -61,9 +65,36 @@ export class FormularioGastosComponent  {
     comentario: ''
   }
 
+  missingFields: String[] = [];
+
+  isAmountValid: boolean = false;
+
   agregarGasto() {
     
-    console.log('nuevoGasto=' + this.nuevoGasto);
+    console.log(`nuevoGasto=${JSON.stringify(this.nuevoGasto)}`);
+
+    this.missingFields = [];
+
+    if (!this.nuevoGasto.fecha) {
+      this.missingFields.push('Fecha');
+    }
+
+    if (this.nuevoGasto.valor <= 1) {
+      this.missingFields.push('Monto');
+    }
+
+    if (this.nuevoGasto.pagador == 0) {
+      this.missingFields.push('Pagador');
+    }
+
+    if (!this.nuevoGasto.categoria) {
+      this.missingFields.push('Categoria');
+    }
+
+    if (this.missingFields.length > 0) {
+      
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Faltan campos obligatorios (' + this.missingFields.join() + ')'});
+    }
     
     this.nuevoGastoPosteable.fecha = this.nuevoGasto.fecha;
     this.nuevoGastoPosteable.valor = this.nuevoGasto.valor;
@@ -71,7 +102,7 @@ export class FormularioGastosComponent  {
     this.nuevoGastoPosteable.comentario = this.nuevoGasto.comentario;
     this.nuevoGastoPosteable.pagador = this.nuevoGasto.pagador;
 
-    console.log('nuevoGastoPosteable=' + this.nuevoGastoPosteable);
+    console.log(`nuevoGastoPosteable=${this.nuevoGastoPosteable}`);
 
     // Aquí puedes agregar lógica previa al envío, como validaciones o ajustes de formato
     this.http.post<NuevoGasto>('http://localhost:3005/gastos', this.nuevoGastoPosteable)
@@ -86,6 +117,15 @@ export class FormularioGastosComponent  {
         }
       });
   }
+
+onInputChange(event: any) {
+    
+  console.log('paso');
+  const inputValue = event.value;
+  this.isAmountValid = inputValue > 0;
+  console.log('onInputChange: ' + 'inputValue=' + inputValue + ", isAmountValid='" + this.isAmountValid);
+
+}
 
 // Función para realizar la actualización de la hoja de cálculo
 actualizarHoja() {
