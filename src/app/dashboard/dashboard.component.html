@@ -1,0 +1,19 @@
+<div class="card flex justify-content-center chart-container">
+    <p-chart type="doughnut" [data]="data_for_chart" ariaLabelledBy="names" [options]="options"></p-chart>
+</div>
+
+<div class="inline-display">
+    <span>Total gastado: {{ sumWithInitial }}</span>
+
+    <ng-container *ngIf="debe==1">
+        <span>La que debe es..</span>
+        <p-avatar image="/assets/ma.png" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+    </ng-container>
+
+    <ng-container *ngIf="debe==2">
+        <span>El que debe es..</span>
+        <p-avatar image="/assets/lg.png" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+    </ng-container>
+
+    <span>y debe {{ loQueDebe }}</span>
+</div>

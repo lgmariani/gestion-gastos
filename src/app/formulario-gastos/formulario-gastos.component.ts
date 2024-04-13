@@ -4,6 +4,7 @@ import { NuevoGasto } from '../interfaces/nuevogasto.model';
 import { HttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
+import { GastosSharedService } from '../services/gastos-shared.service';
 
 
 
@@ -14,7 +15,7 @@ import { MessagesModule } from 'primeng/messages';
 })
 export class FormularioGastosComponent  {
   
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService, private gastosSharedService: GastosSharedService) {}
 
   http = inject(HttpClient);
 
@@ -69,6 +70,27 @@ export class FormularioGastosComponent  {
 
   isAmountValid: boolean = false;
 
+  limpiarForm() {
+   
+    this.nuevoGasto = {
+      id: '',
+      fecha: new Date(), // Establece la fecha actual en formato 'yyyy-MM-dd'
+      pagador: 0,
+      valor: 0,
+      categoria: '',
+      comentario: ''
+    };
+
+    this.nuevoGastoPosteable = {
+      fecha: new Date(), // Establece la fecha actual en formato 'yyyy-MM-dd'
+      pagador: 0,
+      valor: 0,
+      categoria: '',
+      comentario: ''
+    };
+
+  }
+
   agregarGasto() {
     
     console.log(`nuevoGasto=${JSON.stringify(this.nuevoGasto)}`);
@@ -110,6 +132,11 @@ export class FormularioGastosComponent  {
         next: (respuesta) => {
           console.log('Gasto agregado con éxito', respuesta);
           // Aquí puedes agregar lógica post-envío, como limpiar el formulario
+
+          this.gastosSharedService.notifyGastoAdded();
+          this.limpiarForm();
+          this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Gasto agregado con éxito'});
+
         },
         error: (error) => {
           console.error('Error al agregar el gasto', error);

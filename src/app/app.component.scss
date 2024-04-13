@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+}
+
+.sidebar {
+    flex: 0 0 250px; /* Ajusta según el ancho deseado para el sidebar */
+}
+
+.content {
+    flex: 1;
+}

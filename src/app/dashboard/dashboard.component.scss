@@ -1,0 +1,16 @@
+.chart-container {
+    max-width: 600px; /* o el tamaño máximo que prefieras */
+    margin: auto; /* Centra el contenedor horizontalmente */
+    aspect-ratio: 1; /* Mantiene el gráfico cuadrado, elimina o ajusta según necesidad */
+}
+
+p-chart {
+    width: 100% !important; /* Hace que el gráfico sea responsive dentro del contenedor */
+    height: auto !important; /* Mantiene la altura ajustada al ancho para mantener la responsividad */
+}
+
+.inline-display {
+    display: flex;
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+    gap: 10px; /* Añade un poco de espacio entre los elementos */
+}

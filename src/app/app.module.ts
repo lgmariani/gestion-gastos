@@ -15,13 +15,20 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
+import { ChartModule } from 'primeng/chart';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import {SidebarModule} from 'primeng/sidebar';
+import {TreeModule} from 'primeng/tree';
+import { MenuModule } from 'primeng/menu';
 
 //Componentes propios
 import { AppComponent } from './app.component';
 import { FormularioGastosComponent } from './formulario-gastos/formulario-gastos.component';
 import { ListaGastosComponent } from './lista-gastos/lista-gastos.component';
-import { PagadorNombrePipe } from './pagador-nombre.pipe';
-import { CategoryNamePipe } from './category-name.pipe';
+import { PagadorNombrePipe } from './pipes/pagador-nombre.pipe';
+import { CategoryNamePipe } from './pipes/category-name.pipe';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -30,7 +37,8 @@ import { CategoryNamePipe } from './category-name.pipe';
     FormularioGastosComponent,
     ListaGastosComponent,
     PagadorNombrePipe,
-    CategoryNamePipe
+    CategoryNamePipe,
+    DashboardComponent
    ],
   imports: [
     BrowserModule,
@@ -44,9 +52,16 @@ import { CategoryNamePipe } from './category-name.pipe';
     HttpClientModule,
     TableModule,
     ToastModule,
-    MessagesModule
+    MessagesModule,
+    ChartModule,
+    AvatarModule,
+    AvatarGroupModule,
+    SidebarModule,
+    TreeModule,
+    MenuModule
+    
   ],
-  providers: [ MessageService],
+  providers: [ MessageService, PagadorNombrePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
