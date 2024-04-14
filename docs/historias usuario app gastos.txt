@@ -1,0 +1,26 @@
+me estoy imaginando una pantalla principal, donde hay 3 opciones:
+
++ nuevo gasto compartido 
++ modo gastos compartidos
++ presupuesto compartido
++ modo individual
++ 
+
+en modo compartido, en la pantalla principal se ve la torta de gastos, donde se ve claramente el total y el deudor.
+abajo de la torta, se ve la tabla de gastos.
+
+en modo presupuesto compartido, se ve una lista parecida a la de la tabla de gastos, pero, hay un campo adicional TIPO DE GASTO, donde las opciones son cuotas, servicios, etc. 
+  en el caso de cuotas se ofrece la opción número de cuota actual y total.
+  arriba de todo, hay un filtro para seleccionar el mes del presupuesto. antes de interactuar con la tabla hay que elegir el período. 
+      si no está generado el presupuesto para ese mes, se ofrece un botón para crearlo. 
+        al crearlo, copia los datos del período anterior, y eleva el número de cada cuota (o la elimina si corresponde)
+  una vez que la tabla está OK para todos, al final de la tabla, hay un botón llamado LIQUIDAR. 
+    Este botón genera un gasto en la tabla de gastos compartidos, con el total a dividir y el deudor asignado.
+    a partir de ese momento, la tabla queda grisada.
+    en un futuro, la idea es que cada uno pueda likear la linea de este presupuesto con la del presupuesto individual propio.
+
+en modo individual, 
+  hay un filtro para seleccionar el período
+  tendría que haber al menos 3 botones: RESUMEN; CUENTAS; INGRESOS
+  cada una de estas solapas, sería como mi solapa del excel
+  
