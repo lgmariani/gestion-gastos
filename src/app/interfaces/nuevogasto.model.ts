@@ -3,6 +3,6 @@ export interface NuevoGasto {
     pagador: number;
     valor: number;
     categoria: string;
-    comentario: string;
+    titulo: string;
+    repartirentre: number;
   }
-  

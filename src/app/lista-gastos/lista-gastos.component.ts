@@ -56,7 +56,8 @@ export class ListaGastosComponent  {
     pagador: 0,
     valor: 0,
     categoria: '',
-    comentario: ''
+    titulo: '',
+    repartirentre: 0
   };
 
   onRowSelect(event: any) {

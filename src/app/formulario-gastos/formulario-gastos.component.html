@@ -85,9 +85,25 @@
   </div>
 
   <div class="form-group row form-field">
-      <label htmlFor="comentario">Comentario</label>
-      <input class="input-comentario" pInputText id="comentario" aria-describedby="comentario-help" name="comentario" [(ngModel)]="nuevoGasto.comentario" />
-      <small id="comentario-help">Enter your comentario.</small>
+      <label htmlFor="titulo">Titulo</label>
+      <input class="input-titulo" pInputText id="titulo" aria-describedby="titulo-help" name="titulo" [(ngModel)]="nuevoGasto.titulo" />
+      <small id="titulo-help">Enter your titulo.</small>
+  </div>
+
+  <div class="form-group row">
+    <label id="lbl-repartirentre" class="col-md-2 col-form-label"
+      >Repartir entre:</label
+    >
+    <div class="col-md-4">
+      <p-selectButton
+        [options]="peopleOptionsall"
+        name="repartirentre"
+        [(ngModel)]="nuevoGasto.repartirentre"
+        optionLabel="name"
+        optionValue="id"
+        required
+      ></p-selectButton>
+    </div>
   </div>
 
   <button type="submit" class="btn btn-danger">Agregar Gasto</button>

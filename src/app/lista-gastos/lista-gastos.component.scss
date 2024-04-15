@@ -7,3 +7,15 @@
 .table-responsive {
   overflow-x: auto;
 }
+
+.flex-row {
+  display: flex;
+  justify-content: space-between; /* Distribuye el espacio uniformemente */
+  align-items: center; /* Centra los elementos verticalmente */
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan si no hay suficiente espacio */
+}
+
+.card-text {
+  margin-right: 10px; /* Añade un poco de margen entre los textos */
+  white-space: nowrap; /* Evita que los textos se dividan en varias líneas */
+}

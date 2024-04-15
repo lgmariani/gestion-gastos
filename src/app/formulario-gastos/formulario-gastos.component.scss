@@ -9,8 +9,27 @@
 //   width: 100%; /* o el ancho que prefieras */
 // }
 
-.input-comentario {
+.input-titulo {
   width: 50%; /* o el ancho que prefieras */
 }
 
+::ng-deep .p-selectbutton {
+  display: flex;
+  flex-wrap: nowrap; // Esto evita que los elementos se envuelvan
+  justify-content: space-between; // Esto distribuye el espacio si es necesario
 
+  .p-button {
+      flex: 1 1 auto; // Esto permite que los botones crezcan para llenar el espacio
+      text-overflow: ellipsis; // Esto asegura que el texto no sobrepase el botón
+      white-space: nowrap; // Esto evita que el texto dentro del botón se envuelva
+      overflow: hidden; // Esto esconde cualquier desbordamiento de texto
+      min-height: 36px; // Establece un mínimo de altura para todos los tamaños de pantalla
+
+  }
+}
+
+@media (max-width: 767px) {
+  ::ng-deep .p-selectbutton .p-button {
+      padding: 0 10px; // Reduce el padding en pantallas pequeñas
+  }
+}

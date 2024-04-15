@@ -7,6 +7,7 @@ export class PagadorNombrePipe implements PipeTransform {
 
   transform(value: any, args?: any[]): any {
     const peopleOptions = [
+      { id: 0, name: 'Todos'},
       { id: 1, name: 'Mapache' },
       { id: 2, name: 'Topo Rock' }
     ];

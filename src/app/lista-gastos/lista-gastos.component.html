@@ -12,9 +12,10 @@
       <th>ID</th>
       <th>Fecha</th>
       <th>Pagador</th>
-      <th>Valor</th>
+      <th>Titulo</th>
       <th>Categoria</th>
-      <th>Comentario</th>
+      <th>Valor</th>
+      <th>Repartido entre</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-gasto>
@@ -22,23 +23,28 @@
       <td>{{ gasto.id }}</td>
       <td>{{ gasto.fecha | date : "dd/MM/YYYY" }}</td>
       <td>{{ gasto.pagador | pagadorNombre }}</td>
-      <td>{{ gasto.valor | currency  : '$ ' }}</td>
+      <td>{{ gasto.titulo }}</td>
       <td>{{ gasto.categoria | categoryName }}</td>
-      <td>{{ gasto.comentario }}</td>
+      <td>{{ gasto.valor | currency  : '$ ' }}</td>
+      <td>{{ gasto.repartirentre | pagadorNombre }}</td>
     </tr>
   </ng-template>
 </p-table>
 </div>
 
-
 <!-- Tarjetas visibles solo en móviles -->
 <div *ngIf="isMobile">
   <div class="card" *ngFor="let gasto of gastos">
     <div class="card-body">
-      <h5 class="card-title">{{ gasto.categoria | categoryName  }}</h5>
-      <p class="card-text">Monto: {{ gasto.valor  | currency  : '$ '}}</p>
-      <p class="card-text">Fecha: {{ gasto.fecha | date : "dd/MM/YYYY"  }}</p>
-      <p class="card-text">Pagador: {{ gasto.pagador | pagadorNombre }}</p>
+      <h3 class="card-title">{{ gasto.categoria | categoryName }} - {{ gasto.titulo }}</h3>
+      <div class="flex-row">
+        <p class="card-text">Monto: {{ gasto.valor | currency: '$ '}}</p>
+        <p class="card-text">Fecha: {{ gasto.fecha | date: "dd/MM/YYYY" }}</p>
+      </div>
+      <div class="flex-row">
+        <p class="card-text">Pagador: {{ gasto.pagador | pagadorNombre }}</p>
+        <p class="card-text">Repartido entre: {{ gasto.repartirentre | pagadorNombre }}</p>
+      </div>
     </div>
   </div>
 </div>

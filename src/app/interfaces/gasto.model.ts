@@ -4,6 +4,6 @@ export interface Gasto {
     pagador: number;
     valor: number;
     categoria: string;
-    comentario: string;
-  }
-  
+    titulo: string;
+    repartirentre: number;
+}

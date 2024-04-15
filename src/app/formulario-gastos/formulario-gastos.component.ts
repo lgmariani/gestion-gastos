@@ -14,7 +14,7 @@ import { GastosSharedService } from '../services/gastos-shared.service';
   styleUrls: ['./formulario-gastos.component.scss']
 })
 export class FormularioGastosComponent  {
-  
+
   constructor(private messageService: MessageService, private gastosSharedService: GastosSharedService) {}
 
   http = inject(HttpClient);
@@ -24,6 +24,12 @@ export class FormularioGastosComponent  {
   peopleOptions = [
     { id: 1, name: 'Mapache' },
     { id: 2, name: 'Topo Rock' }
+  ];
+
+  peopleOptionsall = [
+    { id: 1, name: 'Mapache' },
+    { id: 2, name: 'Topo Rock' },
+    { id: 0, name: 'Todos'}
   ];
 
   categorias: { valor: string, etiqueta: string }[] = [
@@ -55,7 +61,8 @@ export class FormularioGastosComponent  {
     pagador: 0,
     valor: 0,
     categoria: '',
-    comentario: ''
+    titulo: '',
+    repartirentre: 0
   };
 
   nuevoGastoPosteable: NuevoGasto = {
@@ -63,7 +70,8 @@ export class FormularioGastosComponent  {
     pagador: 0,
     valor: 0,
     categoria: '',
-    comentario: ''
+    titulo: '',
+    repartirentre: 0
   }
 
   missingFields: String[] = [];
@@ -71,14 +79,15 @@ export class FormularioGastosComponent  {
   isAmountValid: boolean = false;
 
   limpiarForm() {
-   
+
     this.nuevoGasto = {
       id: '',
       fecha: new Date(), // Establece la fecha actual en formato 'yyyy-MM-dd'
       pagador: 0,
       valor: 0,
       categoria: '',
-      comentario: ''
+      titulo: '',
+      repartirentre: 0
     };
 
     this.nuevoGastoPosteable = {
@@ -86,13 +95,14 @@ export class FormularioGastosComponent  {
       pagador: 0,
       valor: 0,
       categoria: '',
-      comentario: ''
+      titulo: '',
+      repartirentre: 0
     };
 
   }
 
   agregarGasto() {
-    
+
     console.log(`nuevoGasto=${JSON.stringify(this.nuevoGasto)}`);
 
     this.missingFields = [];
@@ -114,14 +124,14 @@ export class FormularioGastosComponent  {
     }
 
     if (this.missingFields.length > 0) {
-      
+
       this.messageService.add({severity:'error', summary: 'Error', detail: 'Faltan campos obligatorios (' + this.missingFields.join() + ')'});
     }
-    
+
     this.nuevoGastoPosteable.fecha = this.nuevoGasto.fecha;
     this.nuevoGastoPosteable.valor = this.nuevoGasto.valor;
     this.nuevoGastoPosteable.categoria = this.nuevoGasto.categoria;
-    this.nuevoGastoPosteable.comentario = this.nuevoGasto.comentario;
+    this.nuevoGastoPosteable.titulo = this.nuevoGasto.titulo;
     this.nuevoGastoPosteable.pagador = this.nuevoGasto.pagador;
 
     console.log(`nuevoGastoPosteable=${this.nuevoGastoPosteable}`);
@@ -146,7 +156,7 @@ export class FormularioGastosComponent  {
   }
 
 onInputChange(event: any) {
-    
+
   console.log('paso');
   const inputValue = event.value;
   this.isAmountValid = inputValue > 0;
@@ -162,8 +172,8 @@ actualizarHoja() {
     this.nuevoGasto.valor,
     this.nuevoGasto.pagador,
     this.nuevoGasto.categoria,
-    this.nuevoGasto.comentario
-  ]]; 
+    this.nuevoGasto.titulo
+  ]];
 
 }
 
