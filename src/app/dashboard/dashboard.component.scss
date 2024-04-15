@@ -1,16 +1,26 @@
+:host {
+  display: block;
+  max-width: 75%;
+  max-height: auto; /* Ajusta '50px' al tamaño real de tu menú */
+  overflow: auto;
+}
+
 .chart-container {
-    max-width: 600px; /* o el tamaño máximo que prefieras */
-    margin: auto; /* Centra el contenedor horizontalmente */
+    max-width: 65%; /* o el tamaño máximo que prefieras */
+    margin: left; /* Centra el contenedor horizontalmente */
     aspect-ratio: 1; /* Mantiene el gráfico cuadrado, elimina o ajusta según necesidad */
 }
 
 p-chart {
-    width: 100% !important; /* Hace que el gráfico sea responsive dentro del contenedor */
-    height: auto !important; /* Mantiene la altura ajustada al ancho para mantener la responsividad */
+  height: auto !important; /* Mantiene la altura ajustada al ancho para mantener la responsividad */
+  width: auto !important; /* Hace que el gráfico sea responsive dentro del contenedor */
+  display: block; /* Ajusta el gráfico al centro del contenedor */
 }
 
 .inline-display {
     display: flex;
     align-items: center; /* Alinea los elementos verticalmente al centro */
-    gap: 10px; /* Añade un poco de espacio entre los elementos */
+    gap: 5px; /* Añade un poco de espacio entre los elementos */
 }
+
+

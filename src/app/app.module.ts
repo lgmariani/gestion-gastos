@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule,Routes } from '@angular/router';
 
 //PrimeNG
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +22,8 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import {SidebarModule} from 'primeng/sidebar';
 import {TreeModule} from 'primeng/tree';
 import { MenuModule } from 'primeng/menu';
+import { MenubarModule } from 'primeng/menubar';
+
 
 //Componentes propios
 import { AppComponent } from './app.component';
@@ -29,6 +32,15 @@ import { ListaGastosComponent } from './lista-gastos/lista-gastos.component';
 import { PagadorNombrePipe } from './pipes/pagador-nombre.pipe';
 import { CategoryNamePipe } from './pipes/category-name.pipe';
 import { DashboardComponent } from './dashboard/dashboard.component';
+
+
+const appRoutes: Routes = [
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'lista-gastos', component: ListaGastosComponent },
+  { path: 'formulario-gastos', component: FormularioGastosComponent },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: '/error', pathMatch: 'full' }
+];
 
 
 @NgModule({
@@ -58,9 +70,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AvatarGroupModule,
     SidebarModule,
     TreeModule,
-    MenuModule
-    
-  ],
+    MenuModule,
+    MenubarModule,
+    RouterModule.forRoot(appRoutes)
+    ],
   providers: [ MessageService, PagadorNombrePipe],
   bootstrap: [AppComponent]
 })

@@ -1,22 +1,29 @@
 <p-toast></p-toast>
 <!-- <button type="button" (click)="visibleSidebar = true">Mostrar Menú</button> -->
 
-  <div class="sidebar">
-    <p-sidebar [(visible)]="visibleSidebar">
+  <!-- <div class="sidebar">
+    <p-sidebar [(visible)]="visibleSidebar" [modal]="modalSidebar">
       <p-menu [model]="items"></p-menu>
-  </p-sidebar>
+    </p-sidebar>
   </div>
+   -->
+
+  <div class="card">
+    <p-menubar [model]="items"></p-menubar>
+  </div>
+
   <div class="content">
     <div>
-      <p-button
+      <!-- <p-button
         (click)="visibleSidebar = true"
         icon="pi pi-arrow-right"
-      ></p-button>
+      ></p-button> -->
       <h1>{{ title }}</h1>
-      <app-dashboard></app-dashboard>
+      <router-outlet></router-outlet>
+
+      <!-- <app-dashboard></app-dashboard>
       <app-formulario-gastos> </app-formulario-gastos>
-      <!-- Aquí se incluye el componente de formulario -->
-      <app-lista-gastos></app-lista-gastos>
-      <!-- Aquí se incluye el componente de lista de gastos -->
+      <app-lista-gastos></app-lista-gastos> -->
+
     </div>
   </div>

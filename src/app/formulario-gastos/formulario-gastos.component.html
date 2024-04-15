@@ -1,7 +1,7 @@
 <form #nombreFormulario="ngForm" (ngSubmit)="nombreFormulario.valid && agregarGasto()">
   <!-- <div class="form-group row">
     <label for="periodo" class="col-md-2 col-form-label">Periodo:</label>
-    <div class="col-md-4"> 
+    <div class="col-md-4">
       <select id="periodo" name="periodo" class="form-control form-control-sm" [(ngModel)]="nuevoGasto.periodo" required>
         <option value="OCTO2023">OCTO2023</option>
         <option value="NOVI2023">NOVI2023</option>
@@ -44,7 +44,7 @@
 
   <!-- [required]="true" -->
   <!-- le quité el requried cuando agregué el evento con onInputChange y la propiedad isAmountValid -->
-  <div class="form-group row">
+  <div class="form-group row form-field">
     <label for="valor" class="col-md-2 col-form-label">Valor:</label>
     <div class="col-md-2">
       <p-inputNumber
@@ -65,7 +65,7 @@
     </div>
   </div>
 
-  <div class="form-group row">
+  <div class="form-group row form-field">
     <label for="categoria" class="col-md-2 col-form-label">Categoria:</label>
     <div class="col-md-2">
       <p-dropdown
@@ -84,9 +84,9 @@
     </div>
   </div>
 
-  <div class="form-group row">
+  <div class="form-group row form-field">
       <label htmlFor="comentario">Comentario</label>
-      <input pInputText id="comentario" aria-describedby="comentario-help" name="comentario" [(ngModel)]="nuevoGasto.comentario" />
+      <input class="input-comentario" pInputText id="comentario" aria-describedby="comentario-help" name="comentario" [(ngModel)]="nuevoGasto.comentario" />
       <small id="comentario-help">Enter your comentario.</small>
   </div>
 

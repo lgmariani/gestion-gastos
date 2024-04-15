@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
 
   http = inject(HttpClient);
 
+  responsive: boolean = true;
   data_for_chart: any;
   options: any;
   debe: number = -1;
@@ -35,20 +36,20 @@ export class DashboardComponent implements OnInit {
 
     this.http.get<TotalByPerson[]>('http://localhost:3005/get-total-by-person')
       .subscribe((data) => {
-        
+
         data.map((totalByPerson) => {
           //console.log('iterando pagadores: ' + totalByPerson.pagador);
           return totalByPerson.pagador;
         });
 
-        this.listaPagadores = 
+        this.listaPagadores =
           data.map((totalByPerson) =>  {
             return pagadorNombrePipe.transform(totalByPerson.pagador);
           }
         );
 
         console.log('lista pagadores:');
-        
+
         // Ahora actualizamos data_for_chart aquí, dentro del subscribe
         this.data_for_chart = {
           labels: this.listaPagadores, // Esto también podrías querer dinamizarlo en base a los datos
@@ -78,7 +79,7 @@ export class DashboardComponent implements OnInit {
           index1 = 1;
           index2 = 0;
         }
-        
+
         if (data[index1].totalGastado > data[index2].totalGastado) {
           //Gasto mas soquete, entonces me fijo cuanto gaste yo
 
@@ -95,16 +96,22 @@ export class DashboardComponent implements OnInit {
         console.log('total/2:' + (this.sumWithInitial/2).toString());
         console.log('elquedebe:' + this.debe + 'y [1]=' + data[1].totalGastado + 'y [0]=' + data[0].totalGastado );
         console.log('loquegasto=' + loquegasto.toString());
-       
-      
+
+
         // Opciones pueden permanecer fuera si no dependen de los datos
         this.options = {
+          responsive: true,
           plugins: {
             legend: {
+              position: 'top',
               labels: {
                 usePointStyle: true,
                 color: textColor
               }
+            },
+            title: {
+              display: true,
+              text: 'Distribucion de gastos por persona',
             }
           }
         };
