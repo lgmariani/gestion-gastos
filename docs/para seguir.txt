@@ -1,5 +1,12 @@
 para seguir con la App:
 
+- añadir botón eliminar
+
+
+- revivir la funcionalidad de editar. ahora debería llamar al componente formulario-gastos, pasando como parametro el id del gasto
+
+
+
 mejorar/cambiar todo el sistema de validaciones.
 probar hacerlo con formulario de plantilla.
 
@@ -9,12 +16,8 @@ ejemplo:
 Total Gastado: $ 250.530 - Deudor: Euge ( $ 8.500 )
 
 en lista de gastos,
-- añadir buscador global
-- añadir boton recargar
-
-- revivir la funcionalidad de editar. ahora debería llamar al componente formulario-gastos, pasando como parametro el id del gasto
-- añadir botón eliminar
-
+- añadir buscador global --> LISTO
+- añadir boton recargar --> LISTO
 
 En el dashboard:
 Elegir período (mes-año),

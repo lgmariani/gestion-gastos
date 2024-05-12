@@ -1,12 +1,37 @@
+<p-button label="Recargar" icon="pi pi-refresh" iconPos="right" class="button" (onClick)="cargarGastos()"></p-button>
+
+
 <div class="table-responsive" *ngIf="!isMobile">
 <p-table
-  [value]="gastos"
+  #tablaGastos
+  [value]="gastosPreview"
+  [scrollable]="true"
+  scrollHeight="400px"
+  [globalFilterFields]="['pagador', 'valor', 'titulo', 'categoria', 'fecha']"
   selectionMode="single"
   [(selection)]="selectedGasto"
   (onRowSelect)="onRowSelect($event)"
   (onRowUnselect)="onRowUnselect($event)"
   [tableStyle]="{ 'min-width': '50rem' }"
 >
+
+<ng-template pTemplate="caption">
+  <div style="text-align: right">
+      <i
+          class="pi pi-search"
+          style="margin:4px 4px 0 0">
+      </i>
+      <input
+          type="text"
+          pInputText
+          size="50"
+          placeholder="Global Filter"
+          (input)="tablaGastos.filterGlobal($any($event.target).value, 'contains')"
+          style="width:auto"
+      />
+  </div>
+</ng-template>
+
   <ng-template pTemplate="header">
     <tr>
       <th>ID</th>
@@ -16,35 +41,42 @@
       <th>Categoria</th>
       <th>Valor</th>
       <th>Repartido entre</th>
+      <th>Editar</th>
+      <th>Eliminar</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-gasto>
     <tr [pSelectableRow]="gasto">
       <td>{{ gasto.id }}</td>
-      <td>{{ gasto.fecha | date : "dd/MM/YYYY" }}</td>
-      <td>{{ gasto.pagador | pagadorNombre }}</td>
+      <td>{{ gasto.fecha  }}</td>
+      <td>{{ gasto.pagador  }}</td>
       <td>{{ gasto.titulo }}</td>
-      <td>{{ gasto.categoria | categoryName }}</td>
-      <td>{{ gasto.valor | currency  : '$ ' }}</td>
-      <td>{{ gasto.repartirentre | pagadorNombre }}</td>
+      <td>{{ gasto.categoria  }}</td>
+      <td>{{ gasto.valor  }}</td>
+      <td>{{ gasto.repartirentre  }}</td>
+      <td><p-button icon="pi pi-user-edit" iconPos="right" class="button" (onClick)="llamarEdit()"></p-button></td>
+      <td><p-button icon="pi pi-ban" iconPos="right" class="button" (onClick)="eliminar()"></p-button></td>
     </tr>
   </ng-template>
 </p-table>
 </div>
 
+
+
 <!-- Tarjetas visibles solo en móviles -->
 <div *ngIf="isMobile">
-  <div class="card" *ngFor="let gasto of gastos">
+  <div class="card" *ngFor="let gasto of gastosPreview">
     <div class="card-body">
-      <h3 class="card-title">{{ gasto.categoria | categoryName }} - {{ gasto.titulo }}</h3>
+      <h3 class="card-title">{{ gasto.categoria }} - {{ gasto.titulo }}</h3>
       <div class="flex-row">
-        <p class="card-text">Monto: {{ gasto.valor | currency: '$ '}}</p>
-        <p class="card-text">Fecha: {{ gasto.fecha | date: "dd/MM/YYYY" }}</p>
+        <p class="card-text">Monto: {{ gasto.valor }}</p>
+        <p class="card-text">Fecha: {{ gasto.fecha }}</p>
       </div>
       <div class="flex-row">
-        <p class="card-text">Pagador: {{ gasto.pagador | pagadorNombre }}</p>
-        <p class="card-text">Repartido entre: {{ gasto.repartirentre | pagadorNombre }}</p>
+        <p class="card-text">Pagador: {{ gasto.pagador }}</p>
+        <p class="card-text">Repartido entre: {{ gasto.repartirentre }}</p>
       </div>
     </div>
   </div>
 </div>
+

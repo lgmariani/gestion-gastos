@@ -2,6 +2,12 @@
   margin-bottom: 20px;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border: 1px solid red;
+}
+
+.button {
+  border-radius: 50%;
+  background-color: red;
 }
 
 .table-responsive {
@@ -18,4 +24,5 @@
 .card-text {
   margin-right: 10px; /* Añade un poco de margen entre los textos */
   white-space: nowrap; /* Evita que los textos se dividan en varias líneas */
+  background-color: gray;
 }
