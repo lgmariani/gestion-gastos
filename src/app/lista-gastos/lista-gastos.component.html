@@ -1,12 +1,14 @@
 <p-button label="Recargar" icon="pi pi-refresh" iconPos="right" class="button" (onClick)="cargarGastos()"></p-button>
 
 
+<!-- [scrollHeight]="'calc(100vh - 300px)'" -->
+
 <div class="table-responsive" *ngIf="!isMobile">
 <p-table
   #tablaGastos
   [value]="gastosPreview"
   [scrollable]="true"
-  scrollHeight="400px"
+  scrollHeight="75vh"
   [globalFilterFields]="['pagador', 'valor', 'titulo', 'categoria', 'fecha']"
   selectionMode="single"
   [(selection)]="selectedGasto"
@@ -54,8 +56,8 @@
       <td>{{ gasto.categoria  }}</td>
       <td>{{ gasto.valor  }}</td>
       <td>{{ gasto.repartirentre  }}</td>
-      <td><p-button icon="pi pi-user-edit" iconPos="right" class="button" (onClick)="llamarEdit()"></p-button></td>
-      <td><p-button icon="pi pi-ban" iconPos="right" class="button" (onClick)="eliminar()"></p-button></td>
+      <td><p-button icon="pi pi-user-edit" iconPos="right" class="button" (onClick)="editar(gasto)"></p-button></td>
+      <td><p-button icon="pi pi-ban" iconPos="right" class="button" (onClick)="eliminar(gasto)"></p-button></td>
     </tr>
   </ng-template>
 </p-table>

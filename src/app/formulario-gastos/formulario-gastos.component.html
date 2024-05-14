@@ -1,4 +1,4 @@
-<form #nombreFormulario="ngForm" (ngSubmit)="nombreFormulario.valid && agregarGasto()">
+<form #nombreFormulario="ngForm" (ngSubmit)="nombreFormulario.valid && handleAction()">
   <!-- <div class="form-group row">
     <label for="periodo" class="col-md-2 col-form-label">Periodo:</label>
     <div class="col-md-4">
@@ -14,7 +14,6 @@
     <label class="col-md-2 col-form-label">Fecha:</label>
 
     <div class="col-md-2">
-      <!-- Ajusta el ancho aquí según tus necesidades -->
       <p-calendar
         id="fecha"
         name="fecha"
@@ -106,5 +105,5 @@
     </div>
   </div>
 
-  <button type="submit" class="btn btn-danger">Agregar Gasto</button>
+  <button type="submit" class="btn btn-danger">{{btnInputText}}</button>
 </form>

@@ -1,14 +1,15 @@
+import { Gasto } from './../interfaces/gasto.model';
 import { CategoryNamePipe } from './../pipes/category-name.pipe';
 import { registerLocaleData } from '@angular/common';
 import { PagadorNombrePipe } from './../pipes/pagador-nombre.pipe';
 import { Component, HostListener, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe, CurrencyPipe } from '@angular/common';
-import { Gasto } from '../interfaces/gasto.model';
 import { GastoPreview } from '../interfaces/gastoPreview';
 import { GastosSharedService } from '../services/gastos-shared.service';
 import localeEsAr  from '@angular/common/locales/es-AR';
 
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,7 @@ import localeEsAr  from '@angular/common/locales/es-AR';
 })
 export class ListaGastosComponent  {
 
-  constructor(private gastosSharedService: GastosSharedService) {
+  constructor(private gastosSharedService: GastosSharedService, private router: Router) {
 
     this.checkDevice();
     registerLocaleData(localeEsAr);
@@ -48,14 +49,28 @@ export class ListaGastosComponent  {
     this.isMobile = window.innerWidth < 768; // Considera <768px como móvil
   }
 
-  llamarEdit() {
+  editar(pgasto: Gasto) {
+
+    console.log('editame a ' + pgasto.id);
+    this.router.navigate(['/formulario-gastos', pgasto.id]);
+
 
   }
 
-  eliminar() {
+  eliminar(pgasto: Gasto) {
 
-    this.http.delete<any>('http://localhost:3005/gastos/');
+    console.log('eliminame a ' + pgasto.id);
 
+    this.http.delete<any>('http://localhost:3005/gastos/' + pgasto.id).subscribe({
+      next: (respuesta) => {
+        console.log('eliminado:', pgasto.id);
+        this.gastosSharedService.notifyGastoAdded();
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      }});
+
+      //this.cargarGastos();
   }
 
   cargarGastos() {
@@ -64,7 +79,7 @@ export class ListaGastosComponent  {
     this.http.get<Gasto[]>('http://localhost:3005/gastos')
     .subscribe((data) => {
         this.gastos = data;
-        console.log('get:', data)
+        console.log('cargarGastos() got data:', data)
 
         this.gastosPreview = this.gastos.map(dato => (
           {
@@ -77,8 +92,8 @@ export class ListaGastosComponent  {
             repartirentre: this.PagadorNombrePipe.transform(dato.repartirentre)
           }));
 
-        console.log('gastosPreview:', this.gastosPreview);
-        console.log('gastos:', this.gastos);
+        console.log('cargarGastos() got gastosPreview', this.gastosPreview);
+        //console.log('gastos:', this.gastos);
       });
   }
 
@@ -87,8 +102,7 @@ export class ListaGastosComponent  {
 
     this.cargarGastos();
 
-
-    this.gastosSharedService.gastoAdded$.subscribe(() => {
+    this.gastosSharedService.gastoTouched$.subscribe(() => {
       this.cargarGastos();
     });
 
@@ -109,8 +123,8 @@ export class ListaGastosComponent  {
 
     console.log('seleccionado (id):', event.data.id);
 
-    this.http.get<Gasto[]>('http://localhost:3005/gastos/' + event.data.id)
-    .subscribe((data) => { this.gastos = data; console.log(data) });
+    //this.http.get<Gasto[]>('http://localhost:3005/gastos/' + event.data.id)
+    //.subscribe((data) => { this.gastos = data; console.log(data) });
   }
 
   onRowUnselect(event: any) {

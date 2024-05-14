@@ -121,7 +121,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.cargarDatos();
 
-    this.gastosSharedService.gastoAdded$.subscribe(() => {
+    this.gastosSharedService.gastoTouched$.subscribe(() => {
       // Recargar la lista de gastos
       this.cargarDatos();
     });

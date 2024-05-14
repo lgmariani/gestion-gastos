@@ -6,15 +6,15 @@ import { Subject } from 'rxjs';
 })
 export class GastosSharedService {
 
-  private gastoAdded = new Subject<void>();
+  private gastoTouched = new Subject<void>();
 
   // Observable que los componentes pueden suscribirse
-  gastoAdded$ = this.gastoAdded.asObservable();
+  gastoTouched$ = this.gastoTouched.asObservable();
 
   constructor() { }
 
   // Método para llamar cuando se añade un gasto
   notifyGastoAdded() {
-    this.gastoAdded.next();
+    this.gastoTouched.next();
   }
 }

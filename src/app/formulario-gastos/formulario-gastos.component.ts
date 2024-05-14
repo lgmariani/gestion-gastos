@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
 import { GastosSharedService } from '../services/gastos-shared.service';
-
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,9 +16,35 @@ import { GastosSharedService } from '../services/gastos-shared.service';
 })
 export class FormularioGastosComponent  {
 
-  constructor(private messageService: MessageService, private gastosSharedService: GastosSharedService) {}
+  constructor(private messageService: MessageService, private gastosSharedService: GastosSharedService, private router: Router, private activatedRoute: ActivatedRoute) {
+
+    //activatedRoute tiene un observable al cual me puedo suscribir? eso sería? (params)
+    activatedRoute.params.subscribe((params) => {
+
+      //console.log(params);
+      this.paramId = params['id'];
+      console.log('paramID=' + this.paramId);
+
+      /* check paramId is not null*/
+      if (this.paramId) {
+        this.cargarGastoIndividual();
+        this.btnInputText = 'Actualizar gasto';
+      } else {
+        this.btnInputText = 'Agregar gasto';
+      }
+    }
+    );
+
+  }
+
+  ngOnInit() {
+
+
+  }
 
   http = inject(HttpClient);
+
+  paramId : any;
 
   // peopleOptions: string[] = [ 'Mapache',  'Topo Rock' ];
 
@@ -78,6 +105,8 @@ export class FormularioGastosComponent  {
 
   isAmountValid: boolean = false;
 
+  btnInputText: String = '';
+
   limpiarForm() {
 
     this.nuevoGasto = {
@@ -101,8 +130,7 @@ export class FormularioGastosComponent  {
 
   }
 
-  agregarGasto() {
-
+  handleRecord() {
     console.log(`nuevoGasto=${JSON.stringify(this.nuevoGasto)}`);
 
     this.missingFields = [];
@@ -133,8 +161,22 @@ export class FormularioGastosComponent  {
     this.nuevoGastoPosteable.categoria = this.nuevoGasto.categoria;
     this.nuevoGastoPosteable.titulo = this.nuevoGasto.titulo;
     this.nuevoGastoPosteable.pagador = this.nuevoGasto.pagador;
+    this.nuevoGastoPosteable.repartirentre = this.nuevoGasto.repartirentre;
 
-    console.log(`nuevoGastoPosteable=${this.nuevoGastoPosteable}`);
+    console.log(`nuevoGastoPosteable=${JSON.stringify(this.nuevoGastoPosteable)}`);
+  }
+
+  handleAction() {
+    if (this.paramId) {
+      this.actualizarGasto();
+    } else {
+      this.agregarGasto();
+    }
+  }
+
+  agregarGasto() {
+
+    this.handleRecord();
 
     // Aquí puedes agregar lógica previa al envío, como validaciones o ajustes de formato
     this.http.post<NuevoGasto>('http://localhost:3005/gastos', this.nuevoGastoPosteable)
@@ -155,26 +197,84 @@ export class FormularioGastosComponent  {
       });
   }
 
-onInputChange(event: any) {
 
-  console.log('paso');
-  const inputValue = event.value;
-  this.isAmountValid = inputValue > 0;
-  console.log('onInputChange: ' + 'inputValue=' + inputValue + ", isAmountValid='" + this.isAmountValid);
+  actualizarGasto() {
+
+
+    this.handleRecord();
+
+    // Aquí puedes agregar lógica previa al envío, como validaciones o ajustes de formato
+    //aca tengo que cambiar de objeto, porque necesito el que tenia el id.. o bien obtenerlo desde paramId jaja
+
+    this.http.put<Gasto>('http://localhost:3005/gastos/' + this.paramId, this.nuevoGastoPosteable)
+      .subscribe({
+        next: (respuesta) => {
+          console.log('Gasto editado con éxito', respuesta);
+          // Aquí puedes agregar lógica post-envío, como limpiar el formulario
+
+          this.gastosSharedService.notifyGastoAdded();
+          this.limpiarForm();
+          this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Gasto editado con éxito'});
+
+          this.router.navigate(['/lista-gastos']);
+
+        },
+        error: (error) => {
+          console.error('Error al editar el gasto', error);
+          // Manejo de errores, por ejemplo, mostrar un mensaje de error al usuario
+        }
+      });
+  }
+
+
+  cargarGastoIndividual() {
+
+      this.http.get<Gasto>('http://localhost:3005/gastos/' + this.paramId)
+      .subscribe((data) => {
+
+        this.nuevoGasto.fecha = new Date(data.fecha);
+
+        if (!(this.nuevoGasto.fecha instanceof Date)) {
+          console.error('La fecha no es una instancia de Date');
+          //return;
+        }
+
+        //console.log('fecha=', this.nuevoGasto.fecha);
+
+        this.nuevoGasto.valor = data.valor;
+        this.nuevoGasto.categoria = data.categoria.toString();
+        this.nuevoGasto.titulo = data.titulo;
+        this.nuevoGasto.pagador = data.pagador;
+
+
+        //console.log('data:', data);
+        //console.log('data (stringify()):', JSON.stringify(data));
+        //console.log(`nuevoGasto =${(this.nuevoGasto)}`);
+        console.log(`nuevoGasto (stringify)=${JSON.stringify(this.nuevoGasto)}`);
+    });
+  }
+
+  onInputChange(event: any) {
+
+    console.log('paso');
+    const inputValue = event.value;
+    this.isAmountValid = inputValue > 0;
+    console.log('onInputChange: ' + 'inputValue=' + inputValue + ", isAmountValid='" + this.isAmountValid);
+
+  }
+
+  // Función para realizar la actualización de la hoja de cálculo
+  actualizarHoja() {
+
+    const values = [[
+      this.nuevoGasto.fecha,
+      this.nuevoGasto.valor,
+      this.nuevoGasto.pagador,
+      this.nuevoGasto.categoria,
+      this.nuevoGasto.titulo
+    ]];
+
+  }
 
 }
 
-// Función para realizar la actualización de la hoja de cálculo
-actualizarHoja() {
-
-  const values = [[
-    this.nuevoGasto.fecha,
-    this.nuevoGasto.valor,
-    this.nuevoGasto.pagador,
-    this.nuevoGasto.categoria,
-    this.nuevoGasto.titulo
-  ]];
-
-}
-
-}
