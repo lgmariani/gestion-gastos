@@ -115,7 +115,12 @@ export class DashboardComponent implements OnInit {
             }
           }
         };
-      });
+      },
+      (error) => {
+          console.error('Error obtaining total-by-person:', error);
+      }
+
+    );
   }
 
   ngOnInit() {

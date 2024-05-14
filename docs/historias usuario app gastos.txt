@@ -1,26 +1,42 @@
-me estoy imaginando una pantalla principal, donde hay 3 opciones:
+me estoy imaginando una pantalla principal, donde hay opciones:
 
-+ nuevo gasto compartido 
-+ modo gastos compartidos
-+ presupuesto compartido
-+ modo individual
-+ 
++ lista de gastos
++ boton flotante: nuevo gasto (formulario crud-gastos)
++ editor de categorías: dentro del crud-gastos (deseable, mientras tanto json clavado)
++ presupuesto (solapa "cuentas" del excel): 
+	permite armar el presupuesto propio, y en ciertas cuentas, vincular un % a los demas. (ejemplo fibertel)
 
-en modo compartido, en la pantalla principal se ve la torta de gastos, donde se ve claramente el total y el deudor.
-abajo de la torta, se ve la tabla de gastos.
-
-en modo presupuesto compartido, se ve una lista parecida a la de la tabla de gastos, pero, hay un campo adicional TIPO DE GASTO, donde las opciones son cuotas, servicios, etc. 
-  en el caso de cuotas se ofrece la opción número de cuota actual y total.
   arriba de todo, hay un filtro para seleccionar el mes del presupuesto. antes de interactuar con la tabla hay que elegir el período. 
       si no está generado el presupuesto para ese mes, se ofrece un botón para crearlo. 
         al crearlo, copia los datos del período anterior, y eleva el número de cada cuota (o la elimina si corresponde)
-  una vez que la tabla está OK para todos, al final de la tabla, hay un botón llamado LIQUIDAR. 
-    Este botón genera un gasto en la tabla de gastos compartidos, con el total a dividir y el deudor asignado.
-    a partir de ese momento, la tabla queda grisada.
-    en un futuro, la idea es que cada uno pueda likear la linea de este presupuesto con la del presupuesto individual propio.
 
-en modo individual, 
-  hay un filtro para seleccionar el período
-  tendría que haber al menos 3 botones: RESUMEN; CUENTAS; INGRESOS
-  cada una de estas solapas, sería como mi solapa del excel
-  
+
+	se representa como una tabla con campos editables.
+		alguna(s) cuenta(s) (como la común general) se marcan como compartidas, y permiten que se anoten gastos para ir bajando el disponible. son cuentas variables.
+		las cuentas individuales no se actualizan vía gastos, sino que se habilita un botón check para marcarlas como pagadas.
+		en las cuentas de tarjeta, permite indicar pagó mínimo para calcular el saldo a pagar (Deseable)
+	una cuenta o gasto tiene:
+		monto asignado
+		consumido (compartido)
+		consumido (propio) -> este gasto se actualiza manualmente en cuentas variables
+		forma de pago (las de tipo cuota tienen como saldo lo que el otro espera recibir, el 50% de la cuota)
+		tipo (mensual/variable/tarjeta)
+		grupo
+
+	POTENCIAL (ME PARECE QUE NO VA):
+	  una vez que la tabla está OK para todos, al final de la tabla, hay un botón llamado LIQUIDAR. 
+	    Este botón genera un gasto en la tabla de gastos compartidos, con el total a dividir y el deudor asignado.
+	    a partir de ese momento, la tabla queda grisada.
+	    en un futuro, la idea es que cada uno pueda likear la linea de este presupuesto con la del presupuesto individual propio.
+
+
+
++ analisis: es el dashboard, se ve la torta de gastos, 
+		donde se ve claramente el total, el deudor, y tarjetas con datos clave.
++ cuotas: permite agregar las cuotas de cada uno. a su vez, tienen el atributo compartible. esto genera un gasto en la tabla de compartidos para netear, y devenga de la cuenta de cuotas de cada uno. (cada uno tiene su cuenta cuotas)
+	en el caso de cuotas se ofrece la opción número de cuota actual y total.
++ resumen: permite ingresar ingresos como solapa resumen. 
+				
+ 
+
+ 
