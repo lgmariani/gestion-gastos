@@ -10,38 +10,37 @@
     </div>
   </div> -->
 
-  <div class="form-group row">
-    <label class="col-md-2 col-form-label">Fecha:</label>
 
+  <div class="form-group row form-field">
+    <label htmlFor="titulo" class="col-md-2 col-form-label">Titulo</label>
     <div class="col-md-2">
-      <p-calendar
-        id="fecha"
-        name="fecha"
-        [required]="true"
-        [(ngModel)]="nuevoGasto.fecha"
-        [showButtonBar]="true"
-      ></p-calendar>
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <label id="labelpagador" class="col-md-2 col-form-label"
-      >Quién hizo el gasto:</label
-    >
-    <div class="col-md-4">
-      <p-selectButton
-        [options]="peopleOptions"
-        name="pagador"
-        [(ngModel)]="nuevoGasto.pagador"
-        optionLabel="name"
-        optionValue="id"
-        required
-      ></p-selectButton>
+    <input class="input-titulo" pInputText id="titulo" aria-describedby="titulo-help" name="titulo" [(ngModel)]="nuevoGasto.titulo" />
+    <small id="titulo-help">Enter your titulo.</small>
     </div>
   </div>
 
 
-  <!-- [required]="true" -->
+  <div class="form-group row form-field">
+    <label for="categoria" class="col-md-2 col-form-label">Categoria:</label>
+    <div class="col-md-2">
+      <p-dropdown
+        name="categoria"
+        [options]="categorias"
+        [(ngModel)]="nuevoGasto.categoria"
+        optionLabel="etiqueta"
+        optionValue="valor"
+        [filter]="true"
+        filterBy="etiqueta"
+        dataKey="valor"
+        [showClear]="true"
+        placeholder="Elige una categoria"
+      >
+      </p-dropdown>
+    </div>
+  </div>
+
+
+   <!-- [required]="true" -->
   <!-- le quité el requried cuando agregué el evento con onInputChange y la propiedad isAmountValid -->
   <div class="form-group row form-field">
     <label for="valor" class="col-md-2 col-form-label">Valor:</label>
@@ -64,30 +63,37 @@
     </div>
   </div>
 
-  <div class="form-group row form-field">
-    <label for="categoria" class="col-md-2 col-form-label">Categoria:</label>
+  <div class="form-group row">
+    <label class="col-md-2 col-form-label">Fecha:</label>
+
     <div class="col-md-2">
-      <p-dropdown
-        name="categoria"
-        [options]="categorias"
-        [(ngModel)]="nuevoGasto.categoria"
-        optionLabel="etiqueta"
-        optionValue="valor"
-        [filter]="true"
-        filterBy="etiqueta"
-        dataKey="valor"
-        [showClear]="true"
-        placeholder="Elige una categoria"
-      >
-      </p-dropdown>
+      <p-calendar
+        id="fecha"
+        name="fecha"
+        [required]="true"
+        [(ngModel)]="nuevoGasto.fecha"
+        [showButtonBar]="true"
+      ></p-calendar>
     </div>
   </div>
 
-  <div class="form-group row form-field">
-      <label htmlFor="titulo">Titulo</label>
-      <input class="input-titulo" pInputText id="titulo" aria-describedby="titulo-help" name="titulo" [(ngModel)]="nuevoGasto.titulo" />
-      <small id="titulo-help">Enter your titulo.</small>
+  <div class="form-group row">
+    <label id="labelpagador" class="col-md-2 col-form-label"
+      >Pagado por:</label
+    >
+    <div class="col-md-4">
+      <p-selectButton
+        [options]="peopleOptions"
+        name="pagador"
+        [(ngModel)]="nuevoGasto.pagador"
+        optionLabel="name"
+        optionValue="id"
+        required
+      ></p-selectButton>
+    </div>
   </div>
+
+
 
   <div class="form-group row">
     <label id="lbl-repartirentre" class="col-md-2 col-form-label"

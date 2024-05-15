@@ -1,8 +1,8 @@
 .card {
-  margin-bottom: 20px;
-  padding: 10px;
+  margin-bottom: -1px;
+  padding: 2px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  border: 1px solid red;
+  border: 0.5px 0 0 0 solid green;
 }
 
 .button {
@@ -17,7 +17,6 @@
   height: 100%;
 }
 
-
 .flex-row {
   display: flex;
   justify-content: space-between; /* Distribuye el espacio uniformemente */
@@ -25,9 +24,35 @@
   flex-wrap: wrap; /* Permite que los elementos se envuelvan si no hay suficiente espacio */
 }
 
+.card-body {
+  padding: 0.5em;
+}
+
+p.card-text span.bold {
+  font-weight: 700 !important;
+}
+
+.levemente-bold {
+  font-weight: 600;
+}
+
 .card-text {
   margin-right: 10px; /* Añade un poco de margen entre los textos */
   white-space: nowrap; /* Evita que los textos se dividan en varias líneas */
-  background-color: gray;
+  margin-bottom: 0; /* Elimina el margen inferior */
+  font-size: x-small;
+  /*background-color: gray;*/
 }
 
+.card-title {
+  font-size: 0.9em; /* Ajusta el tamaño de la fuente */
+  font-weight: bold; /* Ajusta el peso de la fuente */
+  /*background-color: gray;*/
+}
+
+
+.card-monto {
+  font-size: 0.8em; /* Ajusta el tamaño de la fuente */
+  font-weight: bold; /* Ajusta el peso de la fuente */
+  /*background-color: gray;*/
+}

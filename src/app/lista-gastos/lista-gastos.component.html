@@ -2,6 +2,7 @@
 
 
 <!-- [scrollHeight]="'calc(100vh - 300px)'" -->
+<!-- (onRowSelect)="onRowSelect($event)" -->
 
 <div class="table-responsive" *ngIf="!isMobile">
 <p-table
@@ -12,7 +13,6 @@
   [globalFilterFields]="['pagador', 'valor', 'titulo', 'categoria', 'fecha']"
   selectionMode="single"
   [(selection)]="selectedGasto"
-  (onRowSelect)="onRowSelect($event)"
   (onRowUnselect)="onRowUnselect($event)"
   [tableStyle]="{ 'min-width': '50rem' }"
 >
@@ -56,7 +56,7 @@
       <td>{{ gasto.categoria  }}</td>
       <td>{{ gasto.valor  }}</td>
       <td>{{ gasto.repartirentre  }}</td>
-      <td><p-button icon="pi pi-user-edit" iconPos="right" class="button" (onClick)="editar(gasto)"></p-button></td>
+      <td><p-button icon="pi pi-user-edit" iconPos="right" class="button" (onClick)="editar(gasto.id)"></p-button></td>
       <td><p-button icon="pi pi-ban" iconPos="right" class="button" (onClick)="eliminar(gasto)"></p-button></td>
     </tr>
   </ng-template>
@@ -67,17 +67,16 @@
 
 <!-- Tarjetas visibles solo en móviles -->
 <div *ngIf="isMobile">
-  <div class="card" *ngFor="let gasto of gastosPreview">
+  <div class="card" *ngFor="let gasto of gastosPreview" (click)="onRowSelect(gasto.id)" onKeyPress="" onKeyDown="" onKeyUp="">
     <div class="card-body">
+      <div class="flex-row">
       <h3 class="card-title">{{ gasto.categoria }} - {{ gasto.titulo }}</h3>
-      <div class="flex-row">
-        <p class="card-text">Monto: {{ gasto.valor }}</p>
-        <p class="card-text">Fecha: {{ gasto.fecha }}</p>
+      <h3 class="card-title card-monto">Monto: {{ gasto.valor }}</h3>
       </div>
       <div class="flex-row">
+        <p class="card-text">Fecha: <span class="levemente-bold">{{ gasto.fecha }}</span></p>
         <p class="card-text">Pagador: {{ gasto.pagador }}</p>
-        <p class="card-text">Repartido entre: {{ gasto.repartirentre }}</p>
-      </div>
+        <p class="card-text">Repartido entre: <span class="bold">{{ gasto.repartirentre }}</span></p>      </div>
     </div>
   </div>
 </div>

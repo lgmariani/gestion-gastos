@@ -49,10 +49,10 @@ export class ListaGastosComponent  {
     this.isMobile = window.innerWidth < 768; // Considera <768px como móvil
   }
 
-  editar(pgasto: Gasto) {
+  editar(gasto_id: string) {
 
-    console.log('editame a ' + pgasto.id);
-    this.router.navigate(['/formulario-gastos', pgasto.id]);
+    console.log('editame a ' + gasto_id);
+    this.router.navigate(['/formulario-gastos', gasto_id]);
 
 
   }
@@ -118,10 +118,11 @@ export class ListaGastosComponent  {
     repartirentre: 0
   };
 
-  onRowSelect(event: any) {
-    console.log('seleccionado (completo):', event.data);
+  onRowSelect(gasto_id: string) {
 
-    console.log('seleccionado (id):', event.data.id);
+    console.log('seleccionado (stringify):', JSON.stringify(gasto_id));
+    console.log('seleccionado (id):', gasto_id);
+    this.editar(gasto_id);
 
     //this.http.get<Gasto[]>('http://localhost:3005/gastos/' + event.data.id)
     //.subscribe((data) => { this.gastos = data; console.log(data) });

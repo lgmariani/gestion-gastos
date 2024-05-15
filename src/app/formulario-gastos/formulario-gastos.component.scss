@@ -2,6 +2,8 @@
   display: block;
   max-width: 100%;
   max-height: 100%;
+//  background-color: red;
+  padding: 10px;
   // overflow: auto;
 }
 
@@ -10,7 +12,11 @@
 // }
 
 .input-titulo {
-  width: 50%; /* o el ancho que prefieras */
+  width: 70%; /* o el ancho que prefieras */
+  font-family: 'Roboto', sans-serif;
+  padding: 10px 10px;
+  display: flex;
+  justify-content: center;
 }
 
 ::ng-deep .p-selectbutton {
@@ -33,3 +39,5 @@
       padding: 0 10px; // Reduce el padding en pantallas pequeñas
   }
 }
+
+
