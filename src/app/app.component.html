@@ -1,29 +1,27 @@
 <p-toast></p-toast>
-<!-- <button type="button" (click)="visibleSidebar = true">Mostrar Menú</button> -->
 
-  <!-- <div class="sidebar">
+<!-- bg-[var(--dark-background)] -->
+<div class="flex flex-col min-h-screen">
+
+<!-- <button type="button" (click)="visibleSidebar = true" class="px-4 py-2 bg-blue-500 text-white rounded">Mostrar Menú</button> -->
+<!-- <div class="relative">
     <p-sidebar [(visible)]="visibleSidebar" [modal]="modalSidebar">
       <p-menu [model]="items"></p-menu>
     </p-sidebar>
   </div>
-   -->
-
-  <div class="card">
+-->
+  <div class="bg-white shadow-md rounded-md p-4 flex flex-col py-2.5 justify-center items-center h-auto">
     <p-menubar [model]="items"></p-menubar>
+    <h1 class="text-2xl font-bold mt-4">{{ title }}</h1>
   </div>
 
-  <div class="content">
-    <div>
+  <!-- bg-[var(--primary-background-color)] -->
+  <div class="flex-grow p-4 justify-center items-center h-auto w-full p-2.5 m-0">
       <!-- <p-button
         (click)="visibleSidebar = true"
         icon="pi pi-arrow-right"
       ></p-button> -->
-      <h1>{{ title }}</h1>
       <router-outlet></router-outlet>
-
-      <!-- <app-dashboard></app-dashboard>
-      <app-formulario-gastos> </app-formulario-gastos>
-      <app-lista-gastos></app-lista-gastos> -->
-
-    </div>
   </div>
+
+</div>

@@ -1,0 +1,32 @@
+/*background-colors*/
+
+// #1B4332
+
+$root-background-color: white;
+$primary-background-color: #D6D6D6;
+$dark-background-color: #1e1e1e;
+$accent-color: #568ea3;
+$accent-alternate: #EA7317;
+$alternate-background-grey: #77787f;
+
+
+$secondary-color: #168AAD;
+$secondary-color-dark: #B5E48C;
+$text-color: #ffffff;
+$secondary-text-color: #000000;
+$error-color: #ff0000;
+$background-white: #faf9f9;
+$disabled-color: #f0f0f0;
+$invalid-color: #f9cad6;
+
+// Variables para hover y efectos
+$hover-bg: lighten($dark-background-color, 10%);
+$header-bg: darken($dark-background-color, 5%);
+
+:root {
+  --invalid-color: #{$invalid-color};
+  --root-background-color: #{$root-background-color};
+  --primary-background-color: $primary-background-color;
+  --dark-background-color: #{$dark-background-color};
+  --accent-color: #{$accent-color};
+}

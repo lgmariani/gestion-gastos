@@ -1,0 +1,25 @@
+@import './variables';
+@import './mixins';
+@import './primeng-overrides';
+@import './components/tables';
+@import './components/dropdown';
+@import './components/inputs';
+@import './components/buttons';
+@import './components/toasts';
+@import './components/cards';
+
+body {
+  font-family: 'Roboto', sans-serif;
+  // importante
+  background-color: $root-background-color;
+}
+
+:root { --font-family: 'Roboto', sans-serif; }
+
+.p-component { font-family: var(--font-family); }
+
+// importante
+.content-div {
+  background-color: $primary-background-color;
+}
+

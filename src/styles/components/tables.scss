@@ -1,0 +1,180 @@
+.p-datatable-global {
+  @include rounded-corners(8px);
+  @include table-theme(--primary-background-color, $header-bg, $hover-bg);
+  margin: 1rem !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+
+  // Estilos generales para la tabla
+  &.p-datatable {
+    font-family: 'Inter', 'Segoe UI', Roboto, -apple-system, sans-serif !important;
+    font-size: 0.95rem !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+  }
+
+  // Establecer estilos para el wrapper de la tabla
+  .p-datatable-wrapper {
+    @include rounded-corners(8px);
+    background-color: lighten($primary-background-color, 3%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  // Estilos para el paginador
+  .p-paginator {
+    @include paginator-theme(--primary-background-color, $accent-color);
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  // Caption styles
+  .p-datatable-header {
+    background-color: $header-bg !important;
+    border: none !important;
+    padding: 1rem !important;
+
+    .p-input-icon-left {
+      width: 100% !important;
+
+      input {
+        width: 100% !important;
+        background-color: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: white !important;
+
+        &:focus {
+          border-color: $accent-color !important;
+          box-shadow: 0 0 0 2px rgba($accent-color, 0.2) !important;
+        }
+      }
+    }
+  }
+
+  // Estilos para inputs dentro de la tabla
+  .p-column-filter {
+    width: 100% !important;
+    margin-top: 0.5rem !important;
+  }
+
+  input.p-column-filter,
+  .p-column-filter input,
+  input[type="text"],
+  .p-calendar .p-inputtext {
+    @include modern-input;
+    width: 100% !important;
+  }
+
+  // Estilos para los botones de acción
+  .p-button {
+    border-radius: 50% !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    margin: 0 0.2rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: rgba($accent-color, 0.2) !important;
+    border: none !important;
+    color: white !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.2s ease !important;
+
+    &:hover {
+      transform: translateY(-2px) !important;
+      background-color: $accent-color !important;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .p-button-icon {
+      font-size: 1rem !important;
+      color: white !important;
+    }
+  }
+
+  // Alineación y estilos adicionales del header
+  .p-datatable-thead {
+    > tr > th {
+      background-color: $header-bg !important;
+      color: white !important;
+      font-weight: 600 !important;
+      padding: 1rem !important;
+      border: none !important;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
+
+      &.column-numeric {
+        text-align: right !important;
+      }
+    }
+  }
+
+  // Estilos para el cuerpo de la tabla
+  .p-datatable-tbody {
+    > tr {
+      background-color: transparent !important;
+      transition: all 0.2s ease-in-out !important;
+
+      > td {
+        padding: 0.8rem 1rem !important;
+        border: none !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+
+        &.column-numeric {
+          text-align: right !important;
+        }
+
+        &.column-actions {
+          text-align: center !important;
+        }
+      }
+
+      &:hover {
+        background-color: rgba($accent-color, 0.1) !important;
+        transform: translateY(-1px) !important;
+      }
+
+      &.p-highlight {
+        background-color: rgba($accent-color, 0.2) !important;
+      }
+
+      &:last-child > td {
+        border-bottom: none !important;
+      }
+    }
+  }
+
+  // Efecto de carga
+  .p-datatable-loading-overlay {
+    background-color: rgba($dark-background-color, 0.8) !important;
+    backdrop-filter: blur(4px) !important;
+    border-radius: 8px !important;
+
+    .p-datatable-loading-icon {
+      color: $accent-color !important;
+      font-size: 2rem !important;
+    }
+  }
+}
+
+// Estilos para el botón "Recargar"
+button.p-button.p-component {
+  border-radius: 6px !important;
+  padding: 0.6rem 1.2rem !important;
+  font-weight: 500 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  background-color: $accent-color !important;
+  border: none !important;
+  color: white !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.2s ease !important;
+
+  &:hover {
+    transform: translateY(-1px) !important;
+    background-color: lighten($accent-color, 10%) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .p-button-icon {
+    font-size: 1rem !important;
+  }
+}

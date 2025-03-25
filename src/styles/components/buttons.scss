@@ -1,0 +1,113 @@
+.p-selectbutton {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+  .p-button {
+    flex: 1;
+    margin: 0.5rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    min-height: 36px;
+
+    /* Estilos para botón no seleccionado */
+    // background-color: --primary-light;
+    background-color: $secondary-color;
+    color: white;
+    border: 1px solid #ced4da;
+
+    &:hover {
+      background-color: var(--accent-color);
+    }
+  }
+
+  /* Estilos para botón seleccionado */
+  .p-button.p-highlight {
+    background-color: $accent-alternate;
+    color: #ffffff;
+    border-color: var(--blue-700);
+
+    &:hover {
+      background-color: var(--accent-color);
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  ::ng-deep .p-selectbutton .p-button {
+    padding: 0 10px;
+  }
+}
+
+/* Estilo global para los botones */
+button, .p-button {
+  background-color: var(--blue-500);
+  // color: var(--gray-500);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+/* Hover consistente para todos los botones */
+::ng-deep .p-button:hover:not([disabled]) {
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  background-color: var(--secondary-color);
+}
+
+/* Estilos para botones deshabilitados más sutiles */
+::ng-deep .p-button:disabled, ::ng-deep button:disabled {
+  background-color: #d3d3d3;
+  color: #7a7a7a;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Botones más pequeños en móvil */
+@media screen and (max-width: 768px) {
+  ::ng-deep .p-button {
+    height: 2.25rem;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  /* Priorizar iconos en pantallas pequeñas */
+  ::ng-deep .p-button .p-button-label {
+    display: none;
+  }
+
+  /* Solo mostrar label para botones más importantes */
+  ::ng-deep .p-button.p-button-primary .p-button-label,
+  ::ng-deep .p-button.p-button-danger .p-button-label {
+    display: inline-block;
+  }
+}
+
+/* Estilos para los botones de acción en la tabla */
+.p-datatable .p-button {
+  background-color: var(--blue-500);
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+
+  .p-button-icon {
+    color: white !important;
+    font-size: 1rem;
+  }
+
+  &:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  }
+}

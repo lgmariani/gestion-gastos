@@ -46,6 +46,9 @@ const appRoutes: Routes = [
   { path: '**', redirectTo: '/error', pathMatch: 'full' }
 ];
 
+//https://stackblitz.com/run?file=src%2Fapp%2Fapp.component.ts
+//para probar un codigo loco
+
 
 @NgModule({
   declarations: [

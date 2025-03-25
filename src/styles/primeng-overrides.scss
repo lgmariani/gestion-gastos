@@ -1,0 +1,97 @@
+.small-error-message {
+  @apply text-red-500 font-semibold text-sm;
+}
+
+/* Mejora visual para los mensajes de estado */
+.text-red-500,
+.text-red-600,
+.text-green-600 {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+}
+
+.text-red-500 small,
+.text-red-600 small {
+  background-color: rgba(220, 38, 38, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.text-red-500 small
+.text-green-600 small {
+  background-color: rgba(16, 185, 129, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.p-menubar {
+  z-index: 1000; /* Asegúrate de que sea menor al z-index de los mensajes */
+}
+
+
+h1 {
+  // font-size: 2.5rem;
+  // font-weight: 700;
+  // color: white;
+  // margin-bottom: 1rem;
+}
+
+h2 {
+  // font-size: 2rem;
+  // font-weight: 600;
+  // color: white;
+  // margin-bottom: 0.75rem;
+}
+
+h3 {
+  // font-size: 1.75rem;
+  // font-weight: 500;
+  // color: white;
+  // margin-bottom: 0.5rem;
+}
+
+/* Agrega estos estilos en tu archivo de estilos de componente */
+
+/* Estilos para las tarjetas de unidades en vista móvil */
+.unidad-card {
+  transition: all 0.3s ease;
+}
+
+.unidad-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Estilos para el acordeón de incidencias */
+.accordion-container {
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.accordion-container .pi-chevron-down,
+.accordion-container .pi-chevron-up {
+  transition: transform 0.3s ease;
+}
+
+/* Estilos para la tabla en dispositivos móviles */
+@media (max-width: 768px) {
+  /* Mejoras generales para formularios en móvil */
+  .p-field {
+    margin-bottom: 1rem;
+  }
+
+  /* Estilos para hacer que los botones sean más táctiles en móvil */
+  button.p-button {
+    min-height: 2.5rem;
+    min-width: 2.5rem;
+  }
+
+  /* Mejora la visualización de los mensajes de error */
+  .small-error-message {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: #f44336;
+  }
+}

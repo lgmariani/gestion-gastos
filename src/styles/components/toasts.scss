@@ -1,0 +1,44 @@
+.ui-messages {
+  margin-top: 70px; /* Cambia 70px según la altura de tu menubar */
+  z-index: 1050; /* Asegúrate de que tenga un z-index mayor al menubar */
+}
+
+.p-toast {
+  top: 80px !important; /* Cambia 70px según la altura de tu menubar */
+  z-index: 1050; /* Asegúrate de que esté encima del menubar */
+}
+
+::ng-deep .p-toast {
+  /* Ajusta el fondo del contenedor del toast */
+  background-color: #660000 !important; /* Rojo oscuro sólido */
+  color: #ffffff !important; /* Texto blanco */
+}
+
+::ng-deep .p-toast-message {
+  /* Ajusta el estilo del mensaje */
+  background-color: #b30000 !important; /* Rojo más claro, sin transparencia */
+  color: #ffffff !important; /* Asegura que el texto sea legible */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Opcional: Añade un sombreado para destacar */
+  border-radius: 8px; /* Esquinas redondeadas */
+  padding: 1rem; /* Espaciado interno */
+  opacity: 1 !important; /* Elimina la transparencia */
+
+}
+
+::ng-deep .p-toast-icon {
+  /* Ajusta los íconos dentro del toast */
+  color: #ffcccc !important; /* Color más claro para los íconos */
+}
+
+::ng-deep .p-toast-close-icon {
+  /* Ajusta el botón de cierre */
+  color: #ffffff !important; /* Asegura que sea visible */
+  opacity: 1 !important; /* Elimina la transparencia */
+}
+
+::ng-deep .p-toast-message-content {
+  /* Opcional: Ajusta el contenido del mensaje */
+  font-weight: bold; /* Texto más claro */
+  font-size: 1rem; /* Tamaño de fuente */
+}
+

@@ -1,58 +1,67 @@
-.card {
-  margin-bottom: -1px;
-  padding: 2px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  border: 0.5px 0 0 0 solid green;
-}
+// .inline {
+//   display: inline;
+// }
 
-.button {
-  border-radius: 50%;
-  background-color: red;
-}
+// .searchtext {
+//   margin-right: 10px;
+//   //justify-content: end;
+// }
 
-/* Expande el alto de la tabla */
-.table-responsive {
-  overflow-x: auto;
-  display: block;
-  height: 100%;
-}
+// .card {
+//   margin-bottom: 1px;
+//   padding: 2px;
+//   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+//   border: 0.5px 0 0 0 solid green;
+// }
 
-.flex-row {
-  display: flex;
-  justify-content: space-between; /* Distribuye el espacio uniformemente */
-  align-items: center; /* Centra los elementos verticalmente */
-  flex-wrap: wrap; /* Permite que los elementos se envuelvan si no hay suficiente espacio */
-}
+// .button {
+//   border-radius: 50%;
+//   background-color: red;
+// }
 
-.card-body {
-  padding: 0.5em;
-}
+// /* Expande el alto de la tabla */
+// .table-responsive {
+//   overflow-x: auto;
+//   display: block;
+//   height: 100%;
+// }
 
-p.card-text span.bold {
-  font-weight: 700 !important;
-}
+// .flex-row {
+//   display: flex;
+//   justify-content: space-between; /* Distribuye el espacio uniformemente */
+//   align-items: center; /* Centra los elementos verticalmente */
+//   flex-wrap: wrap; /* Permite que los elementos se envuelvan si no hay suficiente espacio */
+// }
 
-.levemente-bold {
-  font-weight: 600;
-}
+// .card-body {
+//   padding: 0.5em;
+// }
 
-.card-text {
-  margin-right: 10px; /* Añade un poco de margen entre los textos */
-  white-space: nowrap; /* Evita que los textos se dividan en varias líneas */
-  margin-bottom: 0; /* Elimina el margen inferior */
-  font-size: x-small;
-  /*background-color: gray;*/
-}
+// p.card-text span.bold {
+//   font-weight: 700 !important;
+// }
 
-.card-title {
-  font-size: 0.9em; /* Ajusta el tamaño de la fuente */
-  font-weight: bold; /* Ajusta el peso de la fuente */
-  /*background-color: gray;*/
-}
+// .levemente-bold {
+//   font-weight: 600;
+// }
+
+// .card-text {
+//   margin-right: 10px; /* Añade un poco de margen entre los textos */
+//   white-space: nowrap; /* Evita que los textos se dividan en varias líneas */
+//   margin-bottom: 0; /* Elimina el margen inferior */
+//   font-size: x-small;
+//   /*background-color: gray;*/
+// }
+
+// .card-title {
+//   font-size: 0.9em; /* Ajusta el tamaño de la fuente */
+//   font-weight: bold; /* Ajusta el peso de la fuente */
+//   /*background-color: gray;*/
+// }
 
 
-.card-monto {
-  font-size: 0.8em; /* Ajusta el tamaño de la fuente */
-  font-weight: bold; /* Ajusta el peso de la fuente */
-  /*background-color: gray;*/
-}
+// .card-monto {
+//   font-size: 0.8em; /* Ajusta el tamaño de la fuente */
+//   font-weight: bold; /* Ajusta el peso de la fuente */
+//   /*background-color: gray;*/
+// }

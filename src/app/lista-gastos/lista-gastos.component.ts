@@ -9,6 +9,7 @@ import { GastoPreview } from '../interfaces/gastoPreview';
 import { GastosSharedService } from '../services/gastos-shared.service';
 import localeEsAr  from '@angular/common/locales/es-AR';
 
+
 import { Router } from '@angular/router';
 
 
@@ -23,6 +24,8 @@ export class ListaGastosComponent  {
 
     this.checkDevice();
     registerLocaleData(localeEsAr);
+    this.onResize();
+
   }
 
   public isMobile: boolean = false;
@@ -34,6 +37,9 @@ export class ListaGastosComponent  {
   selectedGasto?: Gasto;
   selectedGastoPreview?: GastoPreview;
 
+  screenHeight? : number;
+  screenWidth? : number;
+
   datePipe = new DatePipe("es-AR");
   PagadorNombrePipe = new PagadorNombrePipe();
   CategoryNamePipe = new CategoryNamePipe();
@@ -43,6 +49,8 @@ export class ListaGastosComponent  {
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.checkDevice();
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
   }
 
   private checkDevice() {

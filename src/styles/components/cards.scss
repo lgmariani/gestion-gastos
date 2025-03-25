@@ -1,0 +1,28 @@
+/* Clases para cards */
+.totem-card {
+  background-color: $primary-background-color;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  margin-top: 0.35rem;
+  margin-bottom: 0.20rem;
+  padding: 0;
+  // margin-right: auto;
+
+  &.transparent {
+    background-color: transparent !important;
+  }
+}
+
+.totem-sub-card {
+  background-color: lighten($primary-background-color, 10%);
+  // margin-right: 0.2rem;
+  // margin-left: 0.2rem;
+  // margin-top: 0.25rem;
+  margin-bottom: 2rem;
+  padding: 0;
+  // margin-right: auto;
+
+  &.transparent {
+    background-color: transparent !important;
+  }
+}

@@ -1,115 +1,121 @@
-<form #nombreFormulario="ngForm" (ngSubmit)="nombreFormulario.valid && handleAction()">
-  <!-- <div class="form-group row">
-    <label for="periodo" class="col-md-2 col-form-label">Periodo:</label>
-    <div class="col-md-4">
-      <select id="periodo" name="periodo" class="form-control form-control-sm" [(ngModel)]="nuevoGasto.periodo" required>
-        <option value="OCTO2023">OCTO2023</option>
-        <option value="NOVI2023">NOVI2023</option>
-        <option value="DICI2023">DICI2023</option>
-      </select>
+<!-- bg-[var(--primary-background-color)] -->
+<div class="flex flex-col w-full p-10 shadow-md rounded-lg content-div">
+  <form
+    #nombreFormulario="ngForm"
+    (ngSubmit)="nombreFormulario.valid && handleAction()"
+    class="w-full"
+  >
+    <!-- Título -->
+    <div class="flex flex-wrap mb-4">
+      <label for="titulo" class="md:w-1/6 pr-4 flex items-center justify-end text-right">Titulo:</label>
+      <div class="md:w-2/3">
+        <input
+          class="w-full px-3 py-2 border rounded-md"
+          placeholder="Titulo del gasto"
+          pInputText
+          id="titulo"
+          aria-describedby="titulo-help"
+          name="titulo"
+          [(ngModel)]="nuevoGasto.titulo"
+        />
+      </div>
     </div>
-  </div> -->
 
-
-  <div class="form-group row form-field">
-    <label htmlFor="titulo" class="col-md-2 col-form-label">Titulo</label>
-    <div class="col-md-2">
-    <input class="input-titulo" pInputText id="titulo" aria-describedby="titulo-help" name="titulo" [(ngModel)]="nuevoGasto.titulo" />
-    <small id="titulo-help">Enter your titulo.</small>
+    <!-- Categoría -->
+    <div class="flex flex-wrap mb-4">
+      <label for="categoria" class="md:w-1/6 pr-4 flex items-center justify-end text-right">Categoria:</label>
+      <div class="md:w-2/3">
+        <p-dropdown
+          name="categoria"
+          filterBy="label"
+          dataKey="value"
+          optionLabel="label"
+          [options]="categorias"
+          [(ngModel)]="nuevoGasto.categoria"
+          [filter]="true"
+          [showClear]="true"
+          filterPlaceholder="Buscar"
+          id="categoria"
+          appendTo="body"
+          [required]="true"
+        >
+        </p-dropdown>
+      </div>
     </div>
-  </div>
 
-
-  <div class="form-group row form-field">
-    <label for="categoria" class="col-md-2 col-form-label">Categoria:</label>
-    <div class="col-md-2">
-      <p-dropdown
-        name="categoria"
-        [options]="categorias"
-        [(ngModel)]="nuevoGasto.categoria"
-        optionLabel="etiqueta"
-        optionValue="valor"
-        [filter]="true"
-        filterBy="etiqueta"
-        dataKey="valor"
-        [showClear]="true"
-        placeholder="Elige una categoria"
-      >
-      </p-dropdown>
+    <!-- Valor -->
+    <div class="flex flex-wrap mb-4">
+      <label for="valor" class="md:w-1/6 pr-4 flex items-center justify-end text-right">Valor:</label>
+      <div class="md:w-2/3">
+        <p-inputNumber
+          id="inputvalor"
+          name="valor"
+          [(ngModel)]="nuevoGasto.valor"
+          (onInput)="onInputChange($event)"
+          [style]="{ width: '100%' }"
+          currencyDisplay="symbol"
+          [ngClass]="{ 'ng-invalid ng-dirty': !isAmountValid }"
+          locale="es-AR"
+        ></p-inputNumber>
+      </div>
     </div>
-  </div>
 
-
-   <!-- [required]="true" -->
-  <!-- le quité el requried cuando agregué el evento con onInputChange y la propiedad isAmountValid -->
-  <div class="form-group row form-field">
-    <label for="valor" class="col-md-2 col-form-label">Valor:</label>
-    <div class="col-md-2">
-      <p-inputNumber
-        name="valor"
-        [(ngModel)]="nuevoGasto.valor"
-        (onInput)="onInputChange($event)"
-        inputId="currency-ar"
-        currencyDisplay="symbol"
-        mode="decimal"
-        currency="ARG"
-        [ngClass]="{ 'ng-invalid ng-dirty': !isAmountValid }"
-        locale="es-ES"
-      >
-      </p-inputNumber>
-      <p *ngIf="!isAmountValid" class="text-red-500">
-        El valor es requerido
-      </p>
+    <!-- Fecha -->
+    <div class="flex flex-wrap mb-4">
+      <label for="fecha" class="md:w-1/6 pr-4 flex items-center justify-end text-right">Fecha:</label>
+      <div class="md:w-2/3">
+        <p-calendar
+          id="fecha"
+          name="fecha"
+          [required]="true"
+          [(ngModel)]="nuevoGasto.fecha"
+          [showButtonBar]="true"
+          [style]="{ width: '100%', height: '2.6rem' }"
+        ></p-calendar>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <label class="col-md-2 col-form-label">Fecha:</label>
-
-    <div class="col-md-2">
-      <p-calendar
-        id="fecha"
-        name="fecha"
-        [required]="true"
-        [(ngModel)]="nuevoGasto.fecha"
-        [showButtonBar]="true"
-      ></p-calendar>
+    <!-- Pagado por -->
+    <div class="flex flex-wrap mb-4">
+      <label id="labelpagador" class="md:w-1/6 pr-4 flex items-center justify-end text-right">Pagado por:</label>
+      <div class="md:w-2/3">
+        <p-selectButton
+          [options]="peopleOptions"
+          name="pagador"
+          [(ngModel)]="nuevoGasto.pagador"
+          optionLabel="name"
+          optionValue="id"
+          required
+        ></p-selectButton>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <label id="labelpagador" class="col-md-2 col-form-label"
-      >Pagado por:</label
-    >
-    <div class="col-md-4">
-      <p-selectButton
-        [options]="peopleOptions"
-        name="pagador"
-        [(ngModel)]="nuevoGasto.pagador"
-        optionLabel="name"
-        optionValue="id"
-        required
-      ></p-selectButton>
+    <!-- Repartir entre -->
+    <div class="flex flex-wrap mb-4">
+      <label id="lbl-repartirentre" class="md:w-1/6 pr-4 flex items-center justify-end text-right">Repartir entre:</label>
+      <div class="md:w-2/3">
+        <p-selectButton
+          [options]="peopleOptionsall"
+          name="repartirentre"
+          [(ngModel)]="nuevoGasto.repartirentre"
+          optionLabel="name"
+          optionValue="id"
+          required
+        ></p-selectButton>
+      </div>
     </div>
-  </div>
 
-
-
-  <div class="form-group row">
-    <label id="lbl-repartirentre" class="col-md-2 col-form-label"
-      >Repartir entre:</label
-    >
-    <div class="col-md-4">
-      <p-selectButton
-        [options]="peopleOptionsall"
-        name="repartirentre"
-        [(ngModel)]="nuevoGasto.repartirentre"
-        optionLabel="name"
-        optionValue="id"
-        required
-      ></p-selectButton>
+    <!-- Botón submit -->
+    <div class="flex flex-wrap mb-4">
+      <div class="md:w-1/6"></div>
+      <div class="md:w-2/3">
+        <button
+          type="submit"
+          class="px-4 py-2 text-white rounded hover:bg-green-700"
+        >
+          {{ btnInputText }}
+        </button>
+      </div>
     </div>
-  </div>
-
-  <button type="submit" class="btn btn-danger">{{btnInputText}}</button>
-</form>
+  </form>
+</div>

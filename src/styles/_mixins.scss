@@ -1,0 +1,186 @@
+@mixin rounded-corners($radius: 8px) {
+  border-radius: $radius !important;
+  overflow: hidden !important;
+}
+
+@mixin table-theme($bg-color, $header-bg, $hover-bg) {
+  background-color: $bg-color !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; // Sombra general para toda la tabla
+
+  .p-datatable-wrapper {
+    border-radius: 8px !important;
+    overflow: hidden !important;
+  }
+
+  .p-datatable-thead {
+    // Separación entre filas de encabezado para efecto de tarjeta
+    > tr:first-child {
+      > th {
+        border-bottom: 4px solid rgba(15, 25, 50, 0.5) !important; // Separación más oscura
+        position: relative !important;
+        
+        // Pequeña sombra en el borde inferior para efecto de profundidad
+        &:after {
+          content: "" !important;
+          position: absolute !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          height: 1px !important;
+          background: rgba(255, 255, 255, 0.1) !important;
+        }
+      }
+    }
+    
+    // Fila de filtros
+    > tr:nth-child(2) {
+      > th {
+        padding-top: 0.8rem !important;
+      }
+    }
+    
+    // Estilos comunes para todas las celdas de encabezado
+    > tr > th {
+      color: white !important;
+      border: none !important; // Eliminamos bordes entre columnas
+      padding: 1.2rem 1rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.5px !important; // Mejora la legibilidad del texto
+      
+      // Separadores verticales entre columnas
+      &:not(:last-child) {
+        position: relative !important;
+        
+        &:after {
+          content: "" !important;
+          position: absolute !important;
+          right: 0 !important;
+          top: 25% !important;
+          height: 50% !important;
+          width: 1px !important;
+          background-color: rgba(255, 255, 255, 0.2) !important; // Separador vertical sutil
+        }
+      }
+      
+      // Aseguramos que los iconos de ordenación sean blancos
+      .p-sortable-column-icon,
+      .p-sortable-column-badge {
+        color: white !important;
+        margin-left: 6px !important; // Más espacio entre texto e icono
+      }
+
+      &:first-child {
+        border-top-left-radius: 8px !important;
+      }
+
+      &:last-child {
+        border-top-right-radius: 8px !important;
+      }
+    }
+  }
+
+  .p-datatable-tbody > tr {
+    background-color: $bg-color !important;
+    color: white !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important; // Borde más sutil
+    transition: all 0.2s ease-in-out !important;
+
+    &:hover {
+      background-color: $hover-bg !important; // Prioridad alta con !important
+      transform: translateY(-1px) !important; // Efecto sutil de elevación
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+      z-index: 1 !important; // Asegura que el hover esté por encima
+    }
+
+    > td {
+      padding: 1rem !important;
+      border: none !important;
+      vertical-align: middle !important; // Centra verticalmente el contenido
+    }
+
+    &:last-child {
+      border-bottom: none !important;
+      
+      > td:first-child {
+        border-bottom-left-radius: 8px !important;
+      }
+
+      > td:last-child {
+        border-bottom-right-radius: 8px !important;
+      }
+    }
+    
+    // Líneas alternantes de color para mejorar la legibilidad
+    &:nth-child(odd) {
+      background-color: rgba(255, 255, 255, 0.03) !important;
+      
+      &:hover {
+        background-color: $hover-bg !important; // Asegura que el hover funcione en filas impares
+      }
+    }
+  }
+}
+
+@mixin modern-input {
+  border-radius: 6px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: white !important;
+  padding: 0.6rem 1rem !important;
+  font-size: 0.9rem !important;
+  transition: all 0.2s ease-in-out !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  
+  &:focus {
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+    outline: none !important;
+  }
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.4) !important;
+  }
+}
+
+@mixin paginator-theme($bg-color, $hover-bg) {
+  background-color: $bg-color !important;
+  border-radius: 0 0 8px 8px !important;
+  padding: 0.8rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  
+  .p-paginator-element {
+    color: white !important;
+    border-radius: 4px !important;
+    padding: 0.4rem 0.8rem !important;
+    margin: 0 0.2rem !important;
+    transition: all 0.2s ease !important;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+  }
+
+  .p-paginator-pages {
+    .p-paginator-page {
+      &.p-highlight {
+        background-color: $hover-bg !important;
+        font-weight: 600 !important;
+      }
+    }
+  }
+  
+  // Estilo para los botones de primera/última/anterior/siguiente página
+  .p-paginator-first,
+  .p-paginator-prev,
+  .p-paginator-next,
+  .p-paginator-last {
+    padding: 0.4rem !important;
+    border-radius: 4px !important;
+    
+    &:not(.p-disabled):hover {
+      background-color: rgba(255, 255, 255, 0.1) !important; 
+    }
+  }
+}
