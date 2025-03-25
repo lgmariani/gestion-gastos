@@ -3,53 +3,153 @@
 //   border-radius: 0.5rem;
 // }
 
+// Variables
+$input-height: 2.6rem;
+$input-border-radius: 0.5rem;
+$input-border-width: 2px;
+$input-padding: 0.5rem;
 
-
-input, .p-inputnumber-input {
-  border-radius: 0.5rem;
-  border-width: 2px;
-  border-color: --teal-300;
+// Mixins
+@mixin base-input {
+  height: $input-height;
   width: 100%;
-  // height: 38px; // Match your other inputs
+  border-radius: $input-border-radius;
+  border-width: $input-border-width;
+  border-style: solid;
 }
 
-// .p-component {
-//     & .ng-star-inserted {
-//       border-radius: 0.5rem;
-//     }
-// }
+@mixin invalid-input {
+  border-color: red !important;
+  border-width: $input-border-width !important;
+  background-color: $invalid-color !important;
+}
 
-// // Estilo para cuando está enfocado
-// :host ::ng-deep .p-inputnumber:not(.p-disabled).p-focus .p-inputnumber-input {
-//   border-color: var(--primary-color, #007bff);
-//   box-shadow: 0 0 0 1px var(--primary-color, #007bff);
-// }
+@mixin disabled-input {
+  background-color: $disabled-color;
+  color: black;
+  border: 1px solid #b0b0b0;
+}
 
-// // Estilo para la versión invalid
-// :host ::ng-deep .p-invalid .p-inputnumber-input {
-//   border-color: var(--danger-color, #dc3545);
-// }
+// Estilos base para inputs
+input, .p-inputnumber-input {
+  @include base-input;
+  border-color: var(--bluegray-300);
+}
 
+// Clase para inputs inválidos
 .kama-input {
   &.ng-dirty.ng-invalid {
-    border-color: red !important;
-    border-width: 2px !important;
+    @include invalid-input;
   }
 }
 
+.kama-any-input-invalid {
+  @include invalid-input;
+}
 
+// Estilos para p-calendar
+.p-calendar {
+  .p-inputtext {
+    @include base-input;
+    padding: $input-padding;
+    border-color: var(--bluegray-300);
+
+    &:enabled:focus {
+      border-color: $accent-color;
+      box-shadow: 0 0 0 1px $accent-color;
+    }
+
+    &[disabled] {
+      @include disabled-input;
+      padding: 1rem;
+    }
+  }
+}
+
+// Inputs deshabilitados (general)
+input:disabled,
+textarea:disabled,
+.p-inputtext[disabled] {
+  @include disabled-input;
+}
+
+// Estilos para dropdowns
+.p-dropdown {
+  @include base-input;
+  border-color: var(--bluegray-300);
+  background-color: white;
+
+  .p-dropdown-trigger {
+    border-color: transparent !important;
+  }
+
+  &.p-disabled {
+    color: black !important;
+
+    .p-dropdown-label {
+      color: black !important;
+    }
+  }
+}
+
+// Estilos para p-inputNumber
+.p-inputnumber {
+  width: 100%;
+
+  .p-inputtext {
+    @include base-input;
+    border-color: var(--bluegray-300);
+    padding: $input-padding;
+    background-color: white;
+  }
+
+  &.p-inputnumber-buttons-stacked {
+    .p-inputnumber-button-group {
+      border-color: transparent !important;
+    }
+  }
+
+  /* Estilo para estado inválido */
+  &.ng-invalid.ng-dirty .p-inputtext {
+    @include invalid-input;
+  }
+
+  /* Estilo para estado deshabilitado */
+  &.p-disabled .p-inputtext {
+    @include disabled-input;
+  }
+
+  /* Estilo para cuando tiene foco */
+  &.p-focus .p-inputtext {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 1px var(--primary-color);
+  }
+
+  /* Estilo para los botones de incremento/decremento */
+  .p-inputnumber-button {
+    background-color: var(--blue-500);
+    color: white;
+    border: none;
+
+    &:hover {
+      background-color: var(--accent-color);
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+/* Clase personalizada para inputNumber inválido */
+.kama-invalid-inputnumber .p-inputtext {
+  @include invalid-input;
+  @include base-input;
+}
 
 .p-inputtext[enabled] {
   font-weight: 900;
 }
-
-
-.kama-any-input-invalid {
-  border-color: red !important;
-  border-width: 2px !important;
-  background-color: $invalid-color !important;
-}
-
 
 .p-calendar .p-inputtext[disabled] {
   background-color: $disabled-color;
@@ -58,38 +158,6 @@ input, .p-inputnumber-input {
   height: 2.6rem;
   padding: 1rem;
 }
-
-.p-calendar {
-  .p-inputtext {
-    padding: 0.5rem;
-    height: 2.6rem;
-    width: 100%;
-    border-radius: 0.5rem;
-    border: 2px solid var(--bluegray-300);
-
-    &:enabled:focus {
-      border-color: $accent-color;
-      box-shadow: 0 0 0 1px $accent-color;
-    }
-  }
-}
-
-
-
-// Inputs deshabilitados (general)
-input:disabled, textarea:disabled, .p-inputtext[disabled] {
-  background-color: $disabled-color; // Un fondo gris diferente al habilitado
-  // color: #a0a0a0; // Texto gris más claro
-  color: black;
-  border: 1px solid #b8b8b8; // Borde más notorio
-}
-
-
-
-// p-dropdown {
-//   /* Tus estilos aquí */
-//   @apply kama-dropdown;
-// }
 
 /* Clases para dropdowns */
 .p-dropdown {
@@ -113,7 +181,6 @@ input:disabled, textarea:disabled, .p-inputtext[disabled] {
   }
 }
 
-
 .kama-invalid-dropdown {
   border-color: red !important;
   border-width: 2px !important;
@@ -123,7 +190,6 @@ input:disabled, textarea:disabled, .p-inputtext[disabled] {
   width: 100%;
   background-color: $invalid-color !important;
 }
-
 
 ::ng-deep .p-dropdown {
   border: 2px solid #ccc !important; /* Ajusta el color del borde según tus necesidades */
@@ -150,79 +216,3 @@ input:disabled, textarea:disabled, .p-inputtext[disabled] {
 //   color: #9a9a9a; // Color de texto más claro
 //   border-color: #bcbcbc; // Borde gris para diferenciarlos
 // }
-
-  ///////////////////////////////////////
-  ///
-  /// /* Estilos para p-inputNumber */
-.p-inputnumber {
-  width: 100%;
-
-  .p-inputtext {
-    border-color: --bluegray-300;
-    border-width: 1.5px !important;
-    border-radius: 0.5rem !important;
-    border-style: solid;
-    height: 2.6rem;
-    padding: 0.5rem ;
-    width: 100%;
-    background-color: white;
-  }
-
-  &.p-inputnumber-buttons-stacked {
-    .p-inputnumber-button-group {
-      border-color: transparent !important;
-    }
-  }
-
-  &.rounded-lg .p-inputtext {
-    border-radius: 0.5rem !important;
-  }
-
-  /* Estilo para estado inválido */
-  &.ng-invalid.ng-dirty .p-inputtext {
-    border-color: red !important;
-    border-width: 2px !important;
-    background-color: var(--invalid-color) !important;
-  }
-
-  /* Estilo para estado deshabilitado */
-  &.p-disabled .p-inputtext {
-    color: black !important;
-    background-color: #e0e0e0;
-    border-color: #bcbcbc;
-  }
-
-  /* Estilo para cuando tiene foco */
-  &.p-focus .p-inputtext {
-    border-color: var(--primary-color) !important;
-    box-shadow: 0 0 0 1px var(--primary-color);
-  }
-
-  /* Estilo para los botones de incremento/decremento */
-  .p-inputnumber-button {
-    background-color: var(--blue-500);
-    color: white;
-    border: none;
-
-    &:hover {
-      background-color: var(--accent-color);
-    }
-
-    &:focus {
-      box-shadow: none;
-    }
-  }
-}
-
-/* Clase personalizada para inputNumber inválido */
-.kama-invalid-inputnumber {
-  .p-inputtext {
-    border-color: red !important;
-    border-width: 2px !important;
-    border-radius: 0.5rem !important;
-    border-style: solid;
-    height: 2.6rem;
-    width: 100%;
-    background-color: var(--invalid-color) !important;
-  }
-}
