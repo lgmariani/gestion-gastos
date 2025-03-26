@@ -10,7 +10,7 @@ export class AppComponent implements OnInit{
 
   title = 'Aplicación de Gastos Soquetuda';
 
-	visibleSidebar: boolean = true;
+	visibleSidebar: boolean = false;
   modalSidebar: boolean = false;
   items?: MenuItem[];
 
@@ -21,19 +21,26 @@ export class AppComponent implements OnInit{
           {
               label: 'Nuevo gasto',
               icon: 'pi pi-money-bill',
-              routerLink: 'formulario-gastos',
+              routerLink: '/formulario-gastos',
+              command: () => {
+                this.visibleSidebar = false;
+              }
           },
           {
               label: 'Vista general',
               icon: 'pi pi-chart-bar',
-              routerLink: 'dashboard',
-              items: []
+              routerLink: '/dashboard',
+              command: () => {
+                this.visibleSidebar = false;
+              }
           },
           {
               label: 'Lista de gastos',
               icon: 'pi pi-list',
-              routerLink: 'lista-gastos',
-              items: []
+              routerLink: '/lista-gastos',
+              command: () => {
+                this.visibleSidebar = false;
+              }
           }
   ];
 

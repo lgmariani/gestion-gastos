@@ -1,1 +1,138 @@
+:host ::ng-deep {
+  // Estilos para el sidebar
+  .p-sidebar {
+    .p-sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
+      h2 {
+        margin: 0;
+        color: #1f2937;
+      }
+
+      .p-sidebar-close {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 9999px;
+        background: transparent;
+        color: #4b5563;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #f3f4f6;
+          color: #1f2937;
+        }
+
+        .p-sidebar-close-icon {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .p-menu {
+      width: 100%;
+      border: none;
+      background: transparent;
+      padding: 0;
+
+      .p-menuitem {
+        margin: 0.5rem 0;
+
+        .p-menuitem-link {
+          padding: 1rem;
+          border-radius: 0.5rem;
+          transition: all 0.2s ease;
+          color: #4b5563;
+
+          &:hover {
+            background-color: #f3f4f6;
+            color: #1f2937;
+          }
+
+          &:focus {
+            box-shadow: none;
+            background-color: #f3f4f6;
+          }
+
+          .p-menuitem-icon {
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+            color: #6b7280;
+          }
+
+          .p-menuitem-text {
+            font-size: 1rem;
+            font-weight: 500;
+          }
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  // Estilos para el menubar en desktop
+  @media screen and (min-width: 768px) {
+    .p-menubar {
+      background: transparent;
+      border: none;
+      padding: 0;
+
+      .p-menubar-root-list {
+        gap: 1rem;
+
+        > .p-menuitem {
+          > .p-menuitem-link {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            color: #4b5563;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background-color: #f3f4f6;
+              color: #1f2937;
+            }
+
+            .p-menuitem-icon {
+              margin-right: 0.5rem;
+              color: #6b7280;
+            }
+
+            .p-menuitem-text {
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Estilos adicionales para mejorar la visualización en móvil
+@media screen and (max-width: 768px) {
+  :host ::ng-deep {
+    .p-menubar {
+      .p-menubar-root-list {
+        > li {
+          width: 100%;
+          margin: 0;
+
+          > a {
+            padding: 0.75rem 1rem;
+            justify-content: flex-start;
+            width: 100%;
+
+            .p-menuitem-icon {
+              margin-right: 0.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

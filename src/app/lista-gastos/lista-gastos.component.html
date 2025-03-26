@@ -7,41 +7,58 @@
     [value]="gastosPreview"
     [scrollable]="true"
     scrollHeight="75vh"
+    [styleClass]="'p-datatable-global'"
     [globalFilterFields]="['pagador', 'valor', 'titulo', 'categoria', 'fecha']"
     selectionMode="single"
     [(selection)]="selectedGasto"
     (onRowUnselect)="onRowUnselect($event)"
     [tableStyle]="{ 'min-width': '50rem' }"
+    [paginator]="true"
+    [rows]="rows"
+    [totalRecords]="totalRecords"
+    [lazy]="true"
+    (onPage)="onPage($event)"
+    [sortMode]="'single'"
+    (onSort)="onSort($event)"
+    [rowsPerPageOptions]="[10, 20, 50, 100]"
   >
-  <!-- class="p-datatable-global" -->
 
-  <ng-template pTemplate="caption">
-    <div class="inline text-left">
-      <p-button label="Recargar" icon="pi pi-refresh" iconPos="right" (onClick)="cargarGastos()" styleClass="text-white"></p-button>
-    </div>
+    <ng-template pTemplate="caption">
+      <div class="flex justify-between items-center p-3">
+        <div>
+          <p-button
+            label="Recargar"
+            icon="pi pi-refresh"
+            iconPos="right"
+            (onClick)="cargarGastos()"
+            styleClass="p-button-sm">
+          </p-button>
+        </div>
 
-    <div class="inline float-right mr-3">
-        <i class="pi pi-search mt-1 mr-1 text-white"></i>
-        <input
-            type="text"
-            pInputText
-            size="50"
-            placeholder="Global Filter"
-            (input)="tablaGastos.filterGlobal($any($event.target).value, 'contains')"
-            class="w-auto"
-        />
-    </div>
-  </ng-template>
-
+        <div class="flex align-items-center">
+          <span class="p-input-icon-left search-container">
+            <i class="pi pi-search"></i>
+            <input
+              #searchInput
+              type="text"
+              pInputText
+              placeholder="Buscar..."
+              (input)="onGlobalFilter($event)"
+              class="p-inputtext-sm modern-input"
+            />
+          </span>
+        </div>
+      </div>
+    </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th>ID</th>
-        <th>Fecha</th>
-        <th>Pagador</th>
-        <th>Titulo</th>
-        <th>Categoria</th>
-        <th>Valor</th>
-        <th>Repartido entre</th>
+        <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+        <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
+        <th pSortableColumn="pagador">Pagador <p-sortIcon field="pagador"></p-sortIcon></th>
+        <th pSortableColumn="titulo">Titulo <p-sortIcon field="titulo"></p-sortIcon></th>
+        <th pSortableColumn="categoria">Categoria <p-sortIcon field="categoria"></p-sortIcon></th>
+        <th pSortableColumn="valor">Valor <p-sortIcon field="valor"></p-sortIcon></th>
+        <th pSortableColumn="repartirentre">Repartido entre <p-sortIcon field="repartirentre"></p-sortIcon></th>
         <th>Editar</th>
         <th>Eliminar</th>
       </tr>
@@ -64,14 +81,14 @@
 
   <!-- Tarjetas visibles solo en móviles -->
   <div *ngIf="isMobile">
-    <div class="mb-1 p-2 shadow rounded border-t-green-500" *ngFor="let gasto of gastosPreview" (click)="onRowSelect(gasto.id)" onKeyPress="" onKeyDown="" onKeyUp="">
+    <div class="mb-2 p-2 shadow rounded bg-gray-100 border border-gray-300" *ngFor="let gasto of gastosPreview" (click)="onRowSelect(gasto.id)" onKeyPress="" onKeyDown="" onKeyUp="">
       <div class="p-2">
         <div class="flex justify-between items-center flex-wrap">
           <h3 class="text-sm font-bold">{{ gasto.categoria }} - {{ gasto.titulo }}</h3>
-          <h3 class="text-xs font-bold">Monto: {{ gasto.valor }}</h3>
+          <p class="mr-3 whitespace-nowrap mb-0 text-xs">Fecha: <span class="font-semibold">{{ gasto.fecha }}</span></p>
         </div>
         <div class="flex justify-between items-center flex-wrap">
-          <p class="mr-3 whitespace-nowrap mb-0 text-xs">Fecha: <span class="font-semibold">{{ gasto.fecha }}</span></p>
+          <h3 class="text-xs font-bold">Monto: {{ gasto.valor }}</h3>
           <p class="mr-3 whitespace-nowrap mb-0 text-xs">Pagador: {{ gasto.pagador }}</p>
           <p class="mr-3 whitespace-nowrap mb-0 text-xs">Repartido entre: <span class="font-bold">{{ gasto.repartirentre }}</span></p>
         </div>

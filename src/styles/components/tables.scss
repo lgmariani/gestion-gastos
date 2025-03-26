@@ -1,6 +1,6 @@
 .p-datatable-global {
   @include rounded-corners(8px);
-  @include table-theme($dark-background, $header-bg, $hover-bg);
+  // @include table-theme($primary-background-color, $header-bg, $hover-bg);
   margin: 1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
@@ -25,28 +25,30 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  // Caption styles
-  .p-datatable-header {
-    background-color: $header-bg;
-    border: none;
-    padding: 1rem;
+    // Caption styles
+    .p-datatable-header {
+      background-color: $header-bg;
+      border: none;
+      padding: 1rem;
 
-    .p-input-icon-left {
-      width: 100%;
+      .search-container {
+        width: 300px;
 
-      input {
-        width: 100%;
-        background-color: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: white;
+        .pi-search {
+          color: rgba(255, 255, 255, 0.6);
+        }
 
-        &:focus {
-          border-color: $accent-color;
-          box-shadow: 0 0 0 2px rgba($accent-color, 0.2);
+        input.modern-input {
+          @include modern-input;
+          width: 100%;
+          padding-left: 2.5rem !important;
+
+          &:focus + .pi-search {
+            color: rgba(255, 255, 255, 0.8);
+          }
         }
       }
     }
-  }
 
   // Estilos para inputs dentro de la tabla
   .p-column-filter {
@@ -163,6 +165,7 @@ button.p-button.p-component {
   align-items: center;
   gap: 0.5rem;
   background-color: $accent-color;
+  width: auto;
   border: none;
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);

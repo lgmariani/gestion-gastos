@@ -2,7 +2,7 @@ import { Gasto } from './../interfaces/gasto.model';
 import { CategoryNamePipe } from './../pipes/category-name.pipe';
 import { registerLocaleData } from '@angular/common';
 import { PagadorNombrePipe } from './../pipes/pagador-nombre.pipe';
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { DatePipe, CurrencyPipe } from '@angular/common';
 import { GastoPreview } from '../interfaces/gastoPreview';
 import { GastosSharedService } from '../services/gastos-shared.service';
@@ -11,13 +11,14 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { GastosService } from '../services/gastos.service';
 
-
 @Component({
   selector: 'app-lista-gastos',
   templateUrl: './lista-gastos.component.html',
   styleUrls: ['./lista-gastos.component.scss']
 })
-export class ListaGastosComponent  {
+export class ListaGastosComponent implements OnInit {
+  @ViewChild('tablaGastos') tablaGastos: any;
+  @ViewChild('searchInput') searchInput: any;
 
   constructor(private gastosService: GastosService, private gastosSharedService: GastosSharedService, private router: Router) {
 
@@ -42,6 +43,16 @@ export class ListaGastosComponent  {
   CategoryNamePipe = new CategoryNamePipe();
   CurrencyPipe = new CurrencyPipe('es-AR') ;
 
+  // Propiedades para paginación
+  first: number = 0;
+  rows: number = 10;
+  totalRecords: number = 0;
+
+  // Propiedades para ordenamiento
+  sortField: string = '';
+  sortOrder: number = 1;
+
+  globalFilterValue: string = '';
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -60,41 +71,11 @@ export class ListaGastosComponent  {
     this.router.navigate(['/formulario-gastos', gasto_id]);
   }
 
-
-  cargarGastos() {
-    //'https://65dbe96b3ea883a152924281.mockapi.io/tabla-gastos/gastos'
-
-    this.gastosService.obtenerGastos().subscribe((data) => {
-      this.gastos = data;
-      this.gastosPreview = this.gastos.map(dato => (
-        {
-          id: dato.id,
-          fecha: this.datePipe.transform(dato.fecha, 'dd/MM/YYYY'),
-          pagador: this.PagadorNombrePipe.transform(dato.pagador),
-          valor: this.CurrencyPipe.transform(dato.valor, 'ARG', '$', '1.2-2'),
-          categoria: this.CategoryNamePipe.transform(dato.categoria),
-          titulo: dato.titulo,
-          repartirentre: this.PagadorNombrePipe.transform(dato.repartirentre)
-        }));
-
-      console.log('cargarGastos() got data:', data)
-    });
-  }
-
-  eliminar(gasto: Gasto) {
-    this.gastosService.eliminar(gasto);
-    this.gastosSharedService.notifyGastoAdded();
-  }
-
-
-  ngOnInit() {
-
+  ngOnInit(): void {
     this.cargarGastos();
-
     this.gastosSharedService.gastoTouched$.subscribe(() => {
       this.cargarGastos();
     });
-
   }
 
   nuevoGasto: Gasto = {
@@ -119,6 +100,66 @@ export class ListaGastosComponent  {
 
   onRowUnselect(event: any) {
     console.log('deseleccionado', event.data);
+  }
+
+  onPage(event: any) {
+    console.log('Evento de página:', event);
+    this.first = event.first;
+    this.rows = event.rows;
+    this.cargarGastos();
+  }
+
+  onSort(event: any) {
+    console.log('Evento de ordenamiento:', event);
+    this.sortField = event.field;
+    this.sortOrder = event.order;
+    this.cargarGastos();
+  }
+
+  onGlobalFilter(event: any) {
+    this.globalFilterValue = event.target.value;
+    this.cargarGastos();
+  }
+
+  cargarGastos() {
+    console.log('Cargando gastos con:', {
+      first: this.first,
+      rows: this.rows,
+      sortField: this.sortField,
+      sortOrder: this.sortOrder,
+      globalFilter: this.globalFilterValue
+    });
+
+    this.gastosService.obtenerGastosPaginados(
+      this.first,
+      this.rows,
+      this.sortField,
+      this.sortOrder,
+      this.globalFilterValue
+    ).subscribe({
+      next: (response) => {
+        console.log('Respuesta del servidor:', response);
+        this.gastos = response.data;
+        this.totalRecords = response.pagination.total;
+        this.gastosPreview = this.gastos.map(dato => ({
+          id: dato.id,
+          fecha: this.datePipe.transform(dato.fecha, 'dd/MM/YYYY'),
+          pagador: this.PagadorNombrePipe.transform(dato.pagador),
+          valor: this.CurrencyPipe.transform(dato.valor, 'ARG', '$', '1.2-2'),
+          categoria: this.CategoryNamePipe.transform(dato.categoria),
+          titulo: dato.titulo,
+          repartirentre: this.PagadorNombrePipe.transform(dato.repartirentre)
+        }));
+      },
+      error: (error) => {
+        console.error('Error al cargar gastos:', error);
+      }
+    });
+  }
+
+  eliminar(gasto: Gasto) {
+    this.gastosService.eliminar(gasto);
+    this.gastosSharedService.notifyGastoAdded();
   }
 
 }

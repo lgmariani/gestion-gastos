@@ -1,14 +1,8 @@
-/*background-colors*/
-
-// #1B4332
-
 $root-background-color: white;
 $primary-background-color: #D6D6D6;
-$dark-background: #1e1e1e;
+$dark-background: #77787f;
 $accent-color: #568ea3;
 $accent-alternate: #EA7317;
-$alternate-background-grey: #77787f;
-
 
 $secondary-color: #168AAD;
 $secondary-color-dark: #B5E48C;
@@ -20,8 +14,8 @@ $disabled-color: #f0f0f0;
 $invalid-color: #f9cad6;
 
 // Variables para hover y efectos
-$hover-bg: lighten($dark-background, 10%);
-$header-bg: darken($dark-background, 5%);
+$hover-bg: lighten($primary-background-color, 10%);
+$header-bg: darken($primary-background-color, 5%);
 
 :root {
   --invalid-color: #{$invalid-color};

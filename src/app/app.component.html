@@ -10,10 +10,36 @@
     </p-sidebar>
   </div>
 -->
-  <div class="bg-white shadow-md rounded-md p-4 flex flex-col py-2.5 justify-center items-center h-auto">
-    <p-menubar [model]="items"></p-menubar>
-    <h1 class="text-2xl font-bold mt-4">{{ title }}</h1>
+  <div class="bg-white shadow-md rounded-md p-4 flex flex-col py-2.5 justify-center items-center h-auto w-full">
+    <!-- Botón de menú móvil -->
+    <div class="w-full flex items-center justify-between">
+      <button type="button"
+              (click)="visibleSidebar = true"
+              class="md:hidden px-3 py-2 rounded-md hover:bg-gray-100">
+        <i class="pi pi-bars text-xl"></i>
+      </button>
+      <h1 class="text-xl md:text-2xl font-bold">{{ title }}</h1>
+      <!-- Menú desktop -->
+      <div class="hidden md:block w-full">
+        <p-menubar [model]="items"></p-menubar>
+      </div>
+    </div>
   </div>
+
+  <!-- Sidebar móvil -->
+  <p-sidebar [(visible)]="visibleSidebar"
+             [modal]="true"
+             [showCloseIcon]="true"
+             [baseZIndex]="10000"
+             position="left"
+             styleClass="p-sidebar-md">
+    <ng-template pTemplate="header">
+      <h2 class="text-xl font-semibold">{{ title }}</h2>
+    </ng-template>
+    <div class="py-2">
+      <p-menu [model]="items" [styleClass]="'w-full border-none'"></p-menu>
+    </div>
+  </p-sidebar>
 
   <!-- bg-[var(--primary-background-color)] -->
   <div class="flex-grow p-4 justify-center items-center h-auto w-full p-2.5 m-0">
