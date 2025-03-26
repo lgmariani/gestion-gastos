@@ -8,7 +8,7 @@ import { NuevoGasto } from '../interfaces/nuevogasto.model';
   providedIn: 'root'
 })
 export class GastosService {
-  private apiUrl = 'http://localhost:3005/gastos';
+  private apiUrl = 'https://gestion-gastos-back.onrender.com/gastos';
 
   constructor(private http: HttpClient) { }
 

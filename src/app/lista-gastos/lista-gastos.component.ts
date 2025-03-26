@@ -69,7 +69,7 @@ export class ListaGastosComponent  {
 
     console.log('eliminame a ' + pgasto.id);
 
-    this.http.delete<any>('http://localhost:3005/gastos/' + pgasto.id).subscribe({
+    this.http.delete<any>('https://gestion-gastos-back.onrender.com/gastos' + pgasto.id).subscribe({
       next: (respuesta) => {
         console.log('eliminado:', pgasto.id);
         this.gastosSharedService.notifyGastoAdded();
@@ -84,7 +84,7 @@ export class ListaGastosComponent  {
   cargarGastos() {
     //'https://65dbe96b3ea883a152924281.mockapi.io/tabla-gastos/gastos'
 
-    this.http.get<Gasto[]>('http://localhost:3005/gastos')
+    this.http.get<Gasto[]>('https://gestion-gastos-back.onrender.com/gastos')
     .subscribe((data) => {
         this.gastos = data;
         console.log('cargarGastos() got data:', data)
