@@ -1,9 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Gasto } from '../interfaces/gasto.model';
 import { NuevoGasto } from '../interfaces/nuevogasto.model';
-import { HttpClient } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
-import { MessagesModule } from 'primeng/messages';
 import { GastosSharedService } from '../services/gastos-shared.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GastosService } from '../services/gastos.service';
@@ -34,8 +32,6 @@ export class FormularioGastosComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
-  http = inject(HttpClient);
 
   paramId: string | null = null;
 

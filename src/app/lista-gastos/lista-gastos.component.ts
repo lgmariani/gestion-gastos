@@ -3,14 +3,13 @@ import { CategoryNamePipe } from './../pipes/category-name.pipe';
 import { registerLocaleData } from '@angular/common';
 import { PagadorNombrePipe } from './../pipes/pagador-nombre.pipe';
 import { Component, HostListener, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { DatePipe, CurrencyPipe } from '@angular/common';
 import { GastoPreview } from '../interfaces/gastoPreview';
 import { GastosSharedService } from '../services/gastos-shared.service';
-import localeEsAr  from '@angular/common/locales/es-AR';
-
-
+import   localeEsAr  from '@angular/common/locales/es-AR';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { GastosService } from '../services/gastos.service';
 
 
 @Component({
@@ -20,16 +19,14 @@ import { Router } from '@angular/router';
 })
 export class ListaGastosComponent  {
 
-  constructor(private gastosSharedService: GastosSharedService, private router: Router) {
+  constructor(private gastosService: GastosService, private gastosSharedService: GastosSharedService, private router: Router) {
 
     this.checkDevice();
     registerLocaleData(localeEsAr);
     this.onResize();
-
   }
 
   public isMobile: boolean = false;
-  http = inject(HttpClient);
 
   gastos: Gasto[] = [];
   gastosPreview: GastoPreview[] = [];
@@ -61,48 +58,32 @@ export class ListaGastosComponent  {
 
     console.log('editame a ' + gasto_id);
     this.router.navigate(['/formulario-gastos', gasto_id]);
-
-
   }
 
-  eliminar(pgasto: Gasto) {
-
-    console.log('eliminame a ' + pgasto.id);
-
-    this.http.delete<any>('https://gestion-gastos-back.onrender.com/gastos' + pgasto.id).subscribe({
-      next: (respuesta) => {
-        console.log('eliminado:', pgasto.id);
-        this.gastosSharedService.notifyGastoAdded();
-      },
-      error: (error) => {
-        console.error('Error:', error);
-      }});
-
-      //this.cargarGastos();
-  }
 
   cargarGastos() {
     //'https://65dbe96b3ea883a152924281.mockapi.io/tabla-gastos/gastos'
 
-    this.http.get<Gasto[]>('https://gestion-gastos-back.onrender.com/gastos')
-    .subscribe((data) => {
-        this.gastos = data;
-        console.log('cargarGastos() got data:', data)
+    this.gastosService.obtenerGastos().subscribe((data) => {
+      this.gastos = data;
+      this.gastosPreview = this.gastos.map(dato => (
+        {
+          id: dato.id,
+          fecha: this.datePipe.transform(dato.fecha, 'dd/MM/YYYY'),
+          pagador: this.PagadorNombrePipe.transform(dato.pagador),
+          valor: this.CurrencyPipe.transform(dato.valor, 'ARG', '$', '1.2-2'),
+          categoria: this.CategoryNamePipe.transform(dato.categoria),
+          titulo: dato.titulo,
+          repartirentre: this.PagadorNombrePipe.transform(dato.repartirentre)
+        }));
 
-        this.gastosPreview = this.gastos.map(dato => (
-          {
-            id: dato.id,
-            fecha: this.datePipe.transform(dato.fecha, 'dd/MM/YYYY'),
-            pagador: this.PagadorNombrePipe.transform(dato.pagador),
-            valor: this.CurrencyPipe.transform(dato.valor, 'ARG', '$', '1.2-2'),
-            categoria: this.CategoryNamePipe.transform(dato.categoria),
-            titulo: dato.titulo,
-            repartirentre: this.PagadorNombrePipe.transform(dato.repartirentre)
-          }));
+      console.log('cargarGastos() got data:', data)
+    });
+  }
 
-        console.log('cargarGastos() got gastosPreview', this.gastosPreview);
-        //console.log('gastos:', this.gastos);
-      });
+  eliminar(gasto: Gasto) {
+    this.gastosService.eliminar(gasto);
+    this.gastosSharedService.notifyGastoAdded();
   }
 
 

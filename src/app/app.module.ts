@@ -35,6 +35,8 @@ import { PagadorNombrePipe } from './pipes/pagador-nombre.pipe';
 import { CategoryNamePipe } from './pipes/category-name.pipe';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DatePipe } from '@angular/common';
+import { GastosService } from './services/gastos.service';
+import { GastosSharedService } from './services/gastos-shared.service';
 
 
 const appRoutes: Routes = [
@@ -82,7 +84,7 @@ const appRoutes: Routes = [
     MenubarModule,
     RouterModule.forRoot(appRoutes)
     ],
-  providers: [ MessageService, PagadorNombrePipe, { provide: LOCALE_ID, useValue: 'es-AR' }],
+  providers: [ MessageService, PagadorNombrePipe, { provide: LOCALE_ID, useValue: 'es-AR' }, GastosService, GastosSharedService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
