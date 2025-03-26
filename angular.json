@@ -52,14 +52,6 @@
                 }
               ],
               "outputHashing": "all",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
-            },
-            "development": {
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
@@ -69,7 +61,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.dev.ts"
+                  "with": "src/environments/environment.prod.ts"
                 }
               ]
             },
@@ -89,9 +81,6 @@
           "configurations": {
             "production": {
               "browserTarget": "gestion-gastos:build:production"
-            },
-            "development": {
-              "browserTarget": "gestion-gastos:build:development"
             },
             "local": {
               "browserTarget": "gestion-gastos:build:local"

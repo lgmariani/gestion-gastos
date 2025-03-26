@@ -1,5 +1,4 @@
 export const environment = {
-  //No se usa en produccion
-  production: true,
-  apiUrl: ''
+  production: false,
+  apiUrl: 'https://gestion-gastos-back.onrender.com/'
 };
