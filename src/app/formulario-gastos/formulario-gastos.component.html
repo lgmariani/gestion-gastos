@@ -73,39 +73,37 @@
           [showButtonBar]="true"
           [style]="{ width: '100%' }"
           [inputStyle]="{ width: '100%', height: '2.6rem' }"
+          [locale]="es"
+          dateFormat="dd/mm/yy"
         ></p-calendar>
       </div>
     </div>
 
     <!-- Pagado por -->
     <div class="flex flex-col md:flex-row mb-4">
-      <label id="labelpagador" class="w-full md:w-1/6 pr-2 mb-2 md:mb-0 md:pr-4 flex items-center md:justify-end">Pagado por:</label>
-      <div class="w-full md:w-2/3">
-        <p-selectButton
-          [options]="peopleOptions"
-          name="pagador"
-          [(ngModel)]="nuevoGasto.pagador"
-          optionLabel="name"
-          optionValue="id"
-          required
-          [style]="{ width: '100%' }"
-        ></p-selectButton>
+      <label class="w-full md:w-1/6 pr-2 mb-2 md:mb-0 md:pr-4 flex items-center md:justify-end">Pagado por:</label>
+      <div class="w-full md:w-2/3 flex gap-4">
+        <div *ngFor="let option of peopleOptions" class="flex-1 flex flex-col items-center border rounded-lg p-3 cursor-pointer"
+             [ngClass]="{'bg-blue-100 border-blue-500': nuevoGasto.pagador === option.id}"
+             (click)="nuevoGasto.pagador = option.id">
+          <i class="pi pi-user text-2xl mb-2"></i>
+          <p-radioButton name="pagador" [value]="option.id" [(ngModel)]="nuevoGasto.pagador" [inputId]="'payer_'+option.id"></p-radioButton>
+          <label [for]="'payer_'+option.id" class="mt-1">{{option.name}}</label>
+        </div>
       </div>
     </div>
 
     <!-- Repartir entre -->
     <div class="flex flex-col md:flex-row mb-4">
-      <label id="lbl-repartirentre" class="w-full md:w-1/6 pr-2 mb-2 md:mb-0 md:pr-4 flex items-center md:justify-end">Repartir entre:</label>
-      <div class="w-full md:w-2/3">
-        <p-selectButton
-          [options]="peopleOptionsall"
-          name="repartirentre"
-          [(ngModel)]="nuevoGasto.repartirentre"
-          optionLabel="name"
-          optionValue="id"
-          required
-          [style]="{ width: '100%' }"
-        ></p-selectButton>
+      <label class="w-full md:w-1/6 pr-2 mb-2 md:mb-0 md:pr-4 flex items-center md:justify-end">Repartir entre:</label>
+      <div class="w-full md:w-2/3 flex gap-4">
+        <div *ngFor="let option of peopleOptionsall" class="flex-1 flex flex-col items-center border rounded-lg p-3 cursor-pointer"
+             [ngClass]="{'bg-blue-100 border-blue-500': nuevoGasto.repartirentre === option.id}"
+             (click)="nuevoGasto.repartirentre = option.id">
+          <i class="pi pi-user text-2xl mb-2"></i>
+          <p-radioButton name="repartirentre" [value]="option.id" [(ngModel)]="nuevoGasto.repartirentre" [inputId]="'split_'+option.id"></p-radioButton>
+          <label [for]="'split_'+option.id" class="mt-1">{{option.name}}</label>
+        </div>
       </div>
     </div>
 

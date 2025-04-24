@@ -6,7 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule,Routes } from '@angular/router';
 import { LOCALE_ID } from '@angular/core';
-
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+import { PrimeNGConfig } from 'primeng/api';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
@@ -25,6 +27,7 @@ import {SidebarModule} from 'primeng/sidebar';
 import {TreeModule} from 'primeng/tree';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 
 //Componentes propios
@@ -66,6 +69,7 @@ const appRoutes: Routes = [
     FormsModule,
     BrowserAnimationsModule,
     CalendarModule,
+    RadioButtonModule,
     DropdownModule,
     SelectButtonModule,
     InputNumberModule,
@@ -84,8 +88,30 @@ const appRoutes: Routes = [
     MenubarModule,
     RouterModule.forRoot(appRoutes)
     ],
-  providers: [ MessageService, PagadorNombrePipe, { provide: LOCALE_ID, useValue: 'es-AR' }, GastosService, GastosSharedService ],
+  providers: [
+    MessageService,
+    PagadorNombrePipe,
+    { provide: LOCALE_ID, useValue: 'es' },
+    GastosService,
+    GastosSharedService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private primengConfig: PrimeNGConfig) {
+    registerLocaleData(localeEs);
+    this.primengConfig.setTranslation({
+      accept: 'Aceptar',
+      reject: 'Cancelar',
+      firstDayOfWeek: 1,
+      dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+      dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+      dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+      today: 'Hoy',
+      clear: 'Limpiar'
+    });
+  }
+}
 
